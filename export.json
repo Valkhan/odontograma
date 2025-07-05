@@ -9,214 +9,126 @@
   "specifications": "Test specifications",
   "teeth": [
     {
-      "id": 18,
+      "id": 55,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 17,
+      "id": 54,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 16,
+      "id": 53,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 15,
+      "id": 52,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 14,
+      "id": 51,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 13,
+      "id": 61,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 12,
+      "id": 62,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 11,
+      "id": 63,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 21,
-      "damages": [
-        {
-          "id": 4,
-          "rect": {
-            "id": "",
-            "x": 324,
-            "y": 250,
-            "width": 40,
-            "height": 90,
-            "state": 0,
-            "touching": false
-          },
-          "direction": -1,
-          "type": 0,
-          "origin": "0"
-        }
-      ],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 22,
+      "id": 64,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 23,
+      "id": 65,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 24,
+      "id": 85,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 25,
+      "id": 84,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 26,
+      "id": 83,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 27,
+      "id": 82,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 28,
+      "id": 81,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 48,
+      "id": 71,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 47,
+      "id": 72,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 46,
+      "id": 73,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 45,
+      "id": 74,
       "damages": [],
       "customText": "",
       "isChild": false
     },
     {
-      "id": 44,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 43,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 42,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 41,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 31,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 32,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 33,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 34,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 35,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 36,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 37,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 38,
+      "id": 75,
       "damages": [],
       "customText": "",
       "isChild": false
     }
   ],
-  "exportDate": "2025-07-05T12:02:00.827Z",
+  "exportDate": "2025-07-05T13:33:52.918Z",
   "version": "2.0"
 }
