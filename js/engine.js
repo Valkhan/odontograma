@@ -838,7 +838,7 @@ Engine.prototype.onMouseClick = function (event) {
         if (event.which === 3) {
 
             // check what is in foreground
-            if (this.settings.HIHGLIGHT_SPACES) {
+            if (this.settings.HIGHLIGHT_SPACES) {
 
                 this.mouseRightClickSpace(event);
 
@@ -850,7 +850,7 @@ Engine.prototype.onMouseClick = function (event) {
 
         } else if (event.which === 1) {
             // check what is in foreground
-            if (this.settings.HIHGLIGHT_SPACES) {
+            if (this.settings.HIGHLIGHT_SPACES) {
 
                 this.mouseClickSpace(event);
 
@@ -1024,7 +1024,7 @@ Engine.prototype.onMouseMove = function (event) {
     if (!this.preview) {
 
         // are the spaces in forground
-        if (this.settings.HIHGLIGHT_SPACES) {
+        if (this.settings.HIGHLIGHT_SPACES) {
 
             this.mouseMoveSpaces(event);
 
@@ -1448,20 +1448,20 @@ Engine.prototype.setDamage = function (damage) {
 
     if (this.selectedDamage === this.constants.SUPERNUMERARY) {
 
-        this.settings.HIHGLIGHT_SPACES = true;
+        this.settings.HIGHLIGHT_SPACES = true;
         this.update();
     }
 
     if (this.selectedDamage === this.constants.DIASTEMA) {
 
-        this.settings.HIHGLIGHT_SPACES = true;
+        this.settings.HIGHLIGHT_SPACES = true;
         this.update();
     }
 
     if (this.selectedDamage !== this.constants.DIASTEMA &&
         this.selectedDamage !== this.constants.SUPERNUMERARY) {
 
-        this.settings.HIHGLIGHT_SPACES = false;
+        this.settings.HIGHLIGHT_SPACES = false;
         this.update();
     }
 
@@ -2029,6 +2029,11 @@ Engine.prototype.setLanguage = function(language) {
     this.i18n.setLanguage(language);
     this.createMenu(); // Recreate menu with new language
     this.update();
+    
+    // Update help modal texts if function exists
+    if (typeof updateHelpModalTexts === 'function') {
+        updateHelpModalTexts();
+    }
 };
 
 /**

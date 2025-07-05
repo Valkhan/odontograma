@@ -36,7 +36,23 @@ Um sistema de Odontograma virtual desenvolvido em JavaScript que permite a cria�
 
 ## Como Usar
 
+### Modal de Ajuda
+
+- **Botão Ajuda**: Clique no botão "Ajuda (H)" no canto superior direito
+- **Atalho de Teclado**: Pressione **H** para abrir/fechar a modal de ajuda
+- **Conteúdo Multilíngue**: A modal adapta automaticamente seu conteúdo ao idioma selecionado
+
+A modal de ajuda inclui:
+
+- **Navegação**: Instruções sobre atalhos de teclado e controles
+- **Tratamentos Disponíveis**: Lista completa de diagnósticos e suas teclas
+- **Superfícies do Dente**: Explicação sobre as áreas clicáveis dos dentes
+- **Alteração de Idioma**: Como usar o seletor de idioma
+- **Adição de Notas**: Como inserir códigos dentários personalizados
+- **Impressão**: Como imprimir o odontograma
+
 ### Navegação Básica
+
 - **Setas ←/→**: Alternar entre vista de adulto e criança
 - **Teclas numéricas**: Selecionar diferentes tipos de danos/tratamentos
 - **Click**: Aplicar tratamento nos dentes

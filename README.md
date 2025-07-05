@@ -39,6 +39,21 @@ A virtual Odontogram system developed in JavaScript that allows the creation and
 
 ## How to Use
 
+### Help Modal
+
+- **Help Button**: Click the "Help (H)" button in the top right corner
+- **Keyboard Shortcut**: Press **H** to open/close the help modal
+- **Multilingual Content**: The modal automatically adapts its content to the selected language
+
+The help modal includes:
+
+- **Navigation**: Instructions on keyboard shortcuts and controls
+- **Available Treatments**: Complete list of diagnostics and their keys
+- **Tooth Surfaces**: Explanation of clickable areas on teeth
+- **Language Switching**: How to use the language selector
+- **Adding Notes**: How to insert custom dental codes
+- **Printing**: How to print the odontogram
+
 ### Basic Navigation
 
 - **Arrow keys ←/→**: Switch between adult and child view

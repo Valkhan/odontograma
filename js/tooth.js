@@ -685,7 +685,7 @@ Tooth.prototype.render = function (context, settings, constants) {
     } else {
 
         // highlight the spaces between the teeths
-        if (settings.HIHGLIGHT_SPACES) {
+        if (settings.HIGHLIGHT_SPACES) {
 
             if (this.rect.touching) {
                 this.rect.highlightEllipse(context, "#00AEFF", 0.5, -10);

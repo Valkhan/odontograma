@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste da Modal de Ajuda - Odontograma</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #0052ff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .demo-button {
+            background: #0052ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .demo-button:hover {
+            background: #0041cc;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #0052ff;
+        }
+        
+        .feature-list {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .feature-list ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .feature-list li {
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+        
+        .language-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .center {
+            text-align: center;
+        }
+        
+        .link {
+            color: #0052ff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦷 Modal de Ajuda - Odontograma</h1>
+        
+        <div class="instructions">
+            <h2>✨ Funcionalidade Implementada</h2>
+            <p>A modal de ajuda multilíngue foi <strong>implementada com sucesso</strong> no sistema Odontograma! Esta funcionalidade fornece uma interface amigável para ajudar os usuários a entender como usar o sistema.</p>
+        </div>
+        
+        <div class="feature-list">
+            <h3>🚀 Recursos da Modal de Ajuda:</h3>
+            <ul>
+                <li><strong>Botão de Ajuda Visível:</strong> Localizado no canto superior direito da interface</li>
+                <li><strong>Atalho de Teclado:</strong> Pressione <kbd>H</kbd> para abrir/fechar rapidamente</li>
+                <li><strong>Conteúdo Multilíngue:</strong> Adapta automaticamente ao idioma selecionado (Inglês/Português)</li>
+                <li><strong>Navegação Intuitiva:</strong> Instruções claras sobre atalhos de teclado e controles</li>
+                <li><strong>Lista de Tratamentos:</strong> Todos os diagnósticos disponíveis e suas teclas</li>
+                <li><strong>Superfícies do Dente:</strong> Explicação das áreas clicáveis</li>
+                <li><strong>Guia de Impressão:</strong> Como imprimir o odontograma</li>
+                <li><strong>Adição de Notas:</strong> Como inserir códigos dentários personalizados</li>
+            </ul>
+        </div>
+        
+        <div class="language-info">
+            <h3>🌍 Suporte Multilíngue</h3>
+            <p>A modal de ajuda suporta completamente:</p>
+            <ul>
+                <li><strong>Inglês (EN):</strong> Idioma padrão do sistema</li>
+                <li><strong>Português (PT):</strong> Tradução completa e contextual</li>
+            </ul>
+            <p>O conteúdo da modal é atualizado automaticamente quando o usuário alterna o idioma no seletor.</p>
+        </div>
+        
+        <div class="center">
+            <h3>🎯 Como Testar</h3>
+            <p>Para testar a modal de ajuda, abra o arquivo principal do sistema:</p>
+            <button class="demo-button" onclick="openOdontogram()">🚀 Abrir Odontograma</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instruções de Teste:</h3>
+            <ol>
+                <li>Abra o arquivo <code>index.html</code> no navegador</li>
+                <li>Observe o botão <strong>"Help (H)"</strong> no canto superior direito</li>
+                <li>Clique no botão ou pressione a tecla <kbd>H</kbd></li>
+                <li>Explore o conteúdo da modal de ajuda</li>
+                <li>Altere o idioma usando o seletor e veja a modal se atualizar</li>
+                <li>Feche a modal clicando no botão "Fechar" ou pressionando <kbd>H</kbd> novamente</li>
+            </ol>
+        </div>
+        
+        <div class="center">
+            <h3>📁 Arquivos Modificados</h3>
+            <p>A implementação da modal de ajuda envolveu a atualização dos seguintes arquivos:</p>
+            <ul style="text-align: left; display: inline-block;">
+                <li><code>index.html</code> - Interface da modal e estilos CSS</li>
+                <li><code>js/i18n.js</code> - Traduções para a modal de ajuda</li>
+                <li><code>js/engine.js</code> - Integração com o sistema de idiomas</li>
+                <li><code>README.md</code> - Documentação em inglês</li>
+                <li><code>README_PT.md</code> - Documentação em português</li>
+            </ul>
+        </div>
+        
+        <div class="center" style="margin-top: 40px;">
+            <p>
+                <a href="index.html" class="link">🔗 Ir para o Odontograma</a> |
+                <a href="README_PT.md" class="link">📖 Documentação (PT)</a> |
+                <a href="README.md" class="link">📖 Documentation (EN)</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function openOdontogram() {
+            window.open('index.html', '_blank');
+        }
+    </script>
+</body>
+</html>

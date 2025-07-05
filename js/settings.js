@@ -19,7 +19,7 @@ function Settings() {
     "use strict";
     // app settings
     this.DEBUG = false;
-    this.HIHGLIGHT_SPACES = false;
+    this.HIGHLIGHT_SPACES = false;
     this.TOOTH_PADDING = 0;
     this.RECT_DIMEN = 10;
     
