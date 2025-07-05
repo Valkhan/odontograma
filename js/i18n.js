@@ -98,6 +98,15 @@ function I18n() {
             // Language selector
             'language.label': 'Language:',
             
+            // File operations
+            'file.load': 'Load Patient',
+            'file.export_json': 'Export JSON',
+            'file.export_txt': 'Export TXT',
+            'file.load_success': 'Patient data loaded successfully!',
+            'file.error_invalid_format': 'Invalid file format. Please select a valid patient file.',
+            'file.error_invalid_json': 'Invalid JSON format. Please check the file content.',
+            'file.error_export': 'Error exporting patient data. Please try again.',
+            
             // Help modal
             'help.title': 'Odontograph - User Guide',
             'help.button': 'Help (H)',
@@ -211,6 +220,15 @@ function I18n() {
             // Language selector
             'language.label': 'Idioma:',
             
+            // File operations
+            'file.load': 'Carregar Paciente',
+            'file.export_json': 'Exportar JSON',
+            'file.export_txt': 'Exportar TXT',
+            'file.load_success': 'Dados do paciente carregados com sucesso!',
+            'file.error_invalid_format': 'Formato de arquivo inválido. Por favor, selecione um arquivo de paciente válido.',
+            'file.error_invalid_json': 'Formato JSON inválido. Por favor, verifique o conteúdo do arquivo.',
+            'file.error_export': 'Erro ao exportar dados do paciente. Por favor, tente novamente.',
+            
             // Help modal
             'help.title': 'Odontograma - Guia do Usuário',
             'help.button': 'Ajuda (H)',
@@ -227,7 +245,7 @@ function I18n() {
             'help.treatments.crown': '2 - Coroa',
             'help.treatments.crown_tmp': '3 - Coroa Temporária',
             'help.treatments.missing': '4 - Dente Ausente',
-            'help.treatments.fracture': '5 - Fratura',
+            'help.treatments.fracture': '5 - Fractura',
             'help.treatments.diastema': '8 - Diastema',
             'help.treatments.filling': '11 - Restauração',
             'help.language.title': 'Idioma',

@@ -2054,3 +2054,89 @@ Engine.prototype.getLanguage = function() {
 Engine.prototype.getAvailableLanguages = function() {
     return this.i18n.getAvailableLanguages();
 };
+
+/**
+ * Get current patient data
+ * @returns {object} Patient data object
+ */
+Engine.prototype.getPatientData = function() {
+    return {
+        patientName: this.patientName,
+        patientId: this.patientId,
+        location: this.location,
+        appointmentNumber: this.appointmentNumber,
+        date: this.date,
+        dentist: this.dentist,
+        observations: this.observations,
+        specifications: this.specifications
+    };
+};
+
+/**
+ * Get current teeth data
+ * @returns {array} Array of teeth data
+ */
+Engine.prototype.getTeethData = function() {
+    var teethData = [];
+    
+    for (var i = 0; i < this.teeth.length; i++) {
+        var tooth = this.teeth[i];
+        teethData.push({
+            id: tooth.id,
+            damages: tooth.damages.slice(), // copy array
+            customText: tooth.customText || "",
+            isChild: tooth.isChild || false
+        });
+    }
+    
+    return teethData;
+};
+
+/**
+ * Load teeth data from export
+ * @param {array} teethData Array of teeth data
+ */
+Engine.prototype.loadTeethData = function(teethData) {
+    if (!teethData || !Array.isArray(teethData)) {
+        return;
+    }
+    
+    // Clear existing teeth data
+    this.resetAllTeeth();
+    
+    // Load teeth data
+    for (var i = 0; i < teethData.length; i++) {
+        var toothData = teethData[i];
+        var tooth = this.getToothById(toothData.id);
+        
+        if (tooth) {
+            tooth.damages = toothData.damages || [];
+            tooth.customText = toothData.customText || "";
+            tooth.isChild = toothData.isChild || false;
+        }
+    }
+};
+
+/**
+ * Get tooth by ID
+ * @param {number} toothId Tooth ID
+ * @returns {object} Tooth object or null
+ */
+Engine.prototype.getToothById = function(toothId) {
+    for (var i = 0; i < this.teeth.length; i++) {
+        if (this.teeth[i].id === toothId) {
+            return this.teeth[i];
+        }
+    }
+    return null;
+};
+
+/**
+ * Reset all teeth data
+ */
+Engine.prototype.resetAllTeeth = function() {
+    for (var i = 0; i < this.teeth.length; i++) {
+        this.teeth[i].damages = [];
+        this.teeth[i].customText = "";
+    }
+};
