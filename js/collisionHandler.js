@@ -49,7 +49,7 @@ CollisionHandler.prototype.handleCollision = function (tooth, argument) {
     if (newArg !== 0 && newArg !== undefined && !isNaN(newArg)) {
 
         if (newArg !== this.constants.CARIES &&
-                newArg !== this.constants.CURACION) {
+                newArg !== this.constants.FILLING) {
 
             tooth.toggleDamage(newArg);
         }
@@ -83,7 +83,7 @@ CollisionHandler.prototype.handleCollisionCheckBox = function (checkBox, argumen
             checkBox.state = 1;
         }
 
-    } else if (newArg === this.constants.CURACION) {
+    } else if (newArg === this.constants.FILLING) {
 
         if (checkBox.state === 11) {
             checkBox.state = 0;

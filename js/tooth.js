@@ -519,14 +519,12 @@ Tooth.prototype.createDamage = function (damageId) {
     // empty damage
     var damage;
 
-    if (this.constants.isDiagnostic(damageId)) {
-
-        // attach damage in the proper position
+    if (this.constants.isDiagnostic(damageId)) {        // attach damage in the proper position
         // first check if the damage should be positioned in the checkboxes area
-        if (damageId === this.constants.DIENTE_EN_CLAVIJA ||
+        if (damageId === this.constants.PEG_SHAPED_TOOTH ||
                 damageId === this.constants.FUSION ||
-                damageId === this.constants.CORONA_DEFINITIVA ||
-                damageId === this.constants.CORONA_TEMPORAL) {
+                damageId === this.constants.DEFINITIVE_CROWN ||
+                damageId === this.constants.TEMPORARY_CROWN) {
 
             // set the damage to proper position
             if (this.type === 0) {

@@ -11,6 +11,7 @@
 
 // include the necessary scripts
 document.writeln("<script type='text/javascript' src='js/constants.js'></script>");
+document.writeln("<script type='text/javascript' src='js/i18n.js'></script>");
 document.writeln("<script type='text/javascript' src='js/settings.js'></script>");
 document.writeln("<script type='text/javascript' src='js/rect.js'></script>");
 document.writeln("<script type='text/javascript' src='js/damage.js'></script>");
@@ -53,10 +54,11 @@ function Engine() {
     this.odontogramaGenerator = new OdontogramaGenerator();
 
     // helper for handeling collision
-    this.collisionHandler = new CollisionHandler();
-
-    // settings for application
+    this.collisionHandler = new CollisionHandler();    // settings for application
     this.settings = new Settings();
+
+    // internationalization
+    this.i18n = new I18n();
 
     // constants for application
     this.constants = new Constants();
@@ -276,7 +278,7 @@ Engine.prototype.highlightMultiSelection = function (tooth) {
                 }
 
                 // some damages can only have 2 items in multiselection
-                if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
+                if (this.selectedDamage === this.constants.TRANSPOSITION_LEFT) {
 
                     // if count of selection for this damage (max 2) then
                     // change the highlight color, to show that this selection
@@ -375,48 +377,46 @@ Engine.prototype.handleMultiSelection = function () {
         if (valid) {
 
             var start = Math.min(index1, index2);
-            var end = Math.max(index1, index2);
-
-            // check which damage should be added or removed from the selected
+            var end = Math.max(index1, index2);            // check which damage should be added or removed from the selected
             // teeth
-            if (this.selectedDamage === this.constants.ORTODONTICO_FIJO_END) {
+            if (this.selectedDamage === this.constants.FIXED_ORTHODONTIC_END) {
 
-                this.mouth[start].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
+                this.mouth[start].toggleDamage(this.constants.FIXED_ORTHODONTIC_END,
                     this.constants);
 
-                this.mouth[end].toggleDamage(this.constants.ORTODONTICO_FIJO_END,
-                    this.constants);
-
-                for (var i = start + 1; i <= end - 1; i++) {
-
-                    this.mouth[i].toggleDamage(this.constants.ORTODONTICO_FIJO_CENTER,
-                        this.constants);
-
-                }
-
-            } else if (this.selectedDamage === this.constants.PROTESIS_FIJA_LEFT) {
-
-                this.mouth[start].toggleDamage(this.constants.PROTESIS_FIJA_RIGHT,
-                    this.constants);
-
-                this.mouth[end].toggleDamage(this.constants.PROTESIS_FIJA_LEFT,
+                this.mouth[end].toggleDamage(this.constants.FIXED_ORTHODONTIC_END,
                     this.constants);
 
                 for (var i = start + 1; i <= end - 1; i++) {
 
-                    this.mouth[i].toggleDamage(this.constants.PROTESIS_FIJA_CENTER,
+                    this.mouth[i].toggleDamage(this.constants.FIXED_ORTHODONTIC_CENTER,
                         this.constants);
 
                 }
 
-            } else if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
+            } else if (this.selectedDamage === this.constants.FIXED_PROSTHESIS_LEFT) {
+
+                this.mouth[start].toggleDamage(this.constants.FIXED_PROSTHESIS_RIGHT,
+                    this.constants);
+
+                this.mouth[end].toggleDamage(this.constants.FIXED_PROSTHESIS_LEFT,
+                    this.constants);
+
+                for (var i = start + 1; i <= end - 1; i++) {
+
+                    this.mouth[i].toggleDamage(this.constants.FIXED_PROSTHESIS_CENTER,
+                        this.constants);
+
+                }
+
+            } else if (this.selectedDamage === this.constants.TRANSPOSITION_LEFT) {
 
                 if (end - start === 1) {
 
-                    this.mouth[start].toggleDamage(this.constants.TRANSPOSICION_LEFT,
+                    this.mouth[start].toggleDamage(this.constants.TRANSPOSITION_LEFT,
                         this.constants);
 
-                    this.mouth[end].toggleDamage(this.constants.TRANSPOSICION_RIGHT,
+                    this.mouth[end].toggleDamage(this.constants.TRANSPOSITION_RIGHT,
                         this.constants);
                 }
 
@@ -498,7 +498,7 @@ Engine.prototype.setTextToTextBox = function (textBox, text) {
  */
 Engine.prototype.onTextBoxClicked = function (textBox) {
     "use strict";
-    var message = "Add 3 letter dental code.";
+    var message = this.i18n.t('prompt.dental_code');
 
     var text = prompt(message, "");
 
@@ -1398,10 +1398,8 @@ Engine.prototype.onButtonClick = function (event) {
                 this.save();
             }
 
-            if (event.key === "ArrowLeft") {
-
-                this.adultShowing = true;
-                console.log("Setting odontograma to adult");
+            if (event.key === "ArrowLeft") {                this.adultShowing = true;
+                console.log(this.i18n.t('console.setting_adult'));
                 this.mouth = this.odontAdult;
                 this.spaces = this.odontSpacesAdult;
                 this.update();
@@ -1411,7 +1409,7 @@ Engine.prototype.onButtonClick = function (event) {
             if (event.key === "ArrowRight") {
 
                 this.adultShowing = false;
-                console.log("Setting odontograma to child");
+                console.log(this.i18n.t('console.setting_child'));
                 this.mouth = this.odontChild;
                 this.spaces = this.odontSpacesChild;
                 this.update();
@@ -1430,27 +1428,25 @@ Engine.prototype.setDamage = function (damage) {
     this.multiSelect = false;
     this.multiSelection.length = 0;
 
-    console.log("Engine setting damage: " + damage);
+    console.log(this.i18n.t('console.setting_damage', {damage: damage}));
 
-    this.selectedDamage = parseInt(damage, 10) || 0;
-
-    if (this.selectedDamage === this.constants.TRANSPOSICION_LEFT) {
+    this.selectedDamage = parseInt(damage, 10) || 0;    if (this.selectedDamage === this.constants.TRANSPOSITION_LEFT) {
         this.multiSelect = true;
         this.multiSelection.length = 0;
 
     }
 
-    if (this.selectedDamage === this.constants.ORTODONTICO_FIJO_END) {
+    if (this.selectedDamage === this.constants.FIXED_ORTHODONTIC_END) {
         this.multiSelect = true;
         this.multiSelection.length = 0;
     }
 
-    if (this.selectedDamage === this.constants.PROTESIS_FIJA_LEFT) {
+    if (this.selectedDamage === this.constants.FIXED_PROSTHESIS_LEFT) {
         this.multiSelect = true;
         this.multiSelection.length = 0;
     }
 
-    if (this.selectedDamage === this.constants.SUPER_NUMERARIO) {
+    if (this.selectedDamage === this.constants.SUPERNUMERARY) {
 
         this.settings.HIHGLIGHT_SPACES = true;
         this.update();
@@ -1463,7 +1459,7 @@ Engine.prototype.setDamage = function (damage) {
     }
 
     if (this.selectedDamage !== this.constants.DIASTEMA &&
-        this.selectedDamage !== this.constants.SUPER_NUMERARIO) {
+        this.selectedDamage !== this.constants.SUPERNUMERARY) {
 
         this.settings.HIHGLIGHT_SPACES = false;
         this.update();
@@ -1631,7 +1627,7 @@ Engine.prototype.setDataSource = function (dataArray) {
 
 Engine.prototype.createDiagnostico = function (diagnostico) {
 
-    console.log("Diagnostico: " + JSON.stringify(diagnostico));
+    console.log(this.i18n.t('console.diagnostic', {data: JSON.stringify(diagnostico)}));
 };
 
 /**
@@ -1818,9 +1814,7 @@ Engine.prototype.createHeader = function () {
         100,
         seperation * 2,
         "#000000");
-
-
-    this.renderer.renderText14("Patient",
+    this.renderer.renderText14(this.i18n.t('print.patient'),
         4,
         seperation * 3,
         "#000000");
@@ -1831,7 +1825,7 @@ Engine.prototype.createHeader = function () {
         "#000000");
 
 
-    this.renderer.renderText14("Appoint No.",
+    this.renderer.renderText14(this.i18n.t('print.appointment'),
         4,
         seperation * 4,
         "#000000");
@@ -1841,7 +1835,7 @@ Engine.prototype.createHeader = function () {
         seperation * 4,
         "#000000");
 
-    this.renderer.renderText14("Date",
+    this.renderer.renderText14(this.i18n.t('print.date'),
         this.renderer.width / 2,
         seperation * 4,
         "#000000");
@@ -1851,7 +1845,7 @@ Engine.prototype.createHeader = function () {
         seperation * 4,
         "#000000");
 
-    this.renderer.renderText14("Dentist",
+    this.renderer.renderText14(this.i18n.t('print.dentist'),
         4,
         seperation * 5,
         "#000000");
@@ -1877,21 +1871,19 @@ Engine.prototype.printPreview = function () {
     this.renderer.render(this.odontAdult, this.settings, this.constants);
     this.renderer.render(this.odontSpacesAdult, this.settings, this.constants);
     this.renderer.render(this.odontChild, this.settings, this.constants);
-    this.renderer.render(this.odontSpacesChild, this.settings, this.constants);
+    this.renderer.render(this.odontSpacesChild, this.settings, this.constants);    if (this.settings.DEBUG) {
 
-    if (this.settings.DEBUG) {
+        this.renderer.renderText(this.i18n.t('debug.mode'), 2, 15, "#000000");
 
-        this.renderer.renderText("DEBUG MODE", 2, 15, "#000000");
-
-        this.renderer.renderText("X: " + this.cursorX + ", Y: " + this.cursorY,
+        this.renderer.renderText(this.i18n.t('debug.coordinates', {x: this.cursorX, y: this.cursorY}),
             128, 15, "#000000");
     }
 
-    this.renderer.renderText("Specifications: ", 4, 1200, "#000000");
+    this.renderer.renderText(this.i18n.t('print.specifications') + ": ", 4, 1200, "#000000");
 
     this.renderer.wrapText(this.treatmentData.specs, 8, 1222, this.renderer.width - 8, 14, 5);
 
-    this.renderer.renderText("Observations: ", 4, 1300, "#000000");
+    this.renderer.renderText(this.i18n.t('print.observations') + ": ", 4, 1300, "#000000");
 
     this.renderer.wrapText(this.treatmentData.observations, 8, 1322, this.renderer.width - 8, 14, 5);
 };
@@ -1937,88 +1929,84 @@ Engine.prototype.createMenu = function () {
     let ySeparator = 0;
 
     let posX = startX;
-    let xSeparator = buttonWidth;
-
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Caries", 1);
+    let xSeparator = buttonWidth;    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.caries'), 1);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Crown", 2);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.crown'), 2);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Crown (Tmp)", 3);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.crown_tmp'), 3);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Missing", 4);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.missing'), 4);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Fracture", 5);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.fracture'), 5);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Diastema", 8);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.diastema'), 8);
 
     posY = posY + buttonHeight + ySeparator;
     posX = startX;
 
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Filling", 11);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.filling'), 11);
+    posX = posX + xSeparator;    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.rem_prost'), 12);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Rem Prost", 12);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.drifting'), 13);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Drifting", 13);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.rotation'), 14);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Rotation", 14);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.fusion'), 15);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Fusion", 15);
-    posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Root Remnant", 16);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.root_remnant'), 16);
 
     posY = posY + buttonHeight + ySeparator;
     posX = startX;
 
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Eruption", 24);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.eruption'), 24);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Transpositon", 25);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.transposition'), 25);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Supernumerary", 27);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.supernumerary'), 27);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Pulp", 20);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.pulp'), 28);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Prosthesis", 29);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.prosthesis'), 29);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Bolt", 30);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.bolt'), 30);
 
     posY = posY + buttonHeight + ySeparator;
     posX = startX;
 
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Fixed Ortho", 32);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.fixed_ortho'), 32);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Fixed Prosth", 34);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.fixed_prosth'), 34);
+    posX = posX + xSeparator;    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.implant'), 6);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Implant", 6);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.macrodontia'), 17);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Macrodontia", 17);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.microdontia'), 18);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Microdontia", 10);
-    posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Dyschromic", 22);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.dyschromic'), 22);
 
     posY = posY + buttonHeight + ySeparator;
     posX = startX;
 
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Worn", 37);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.worn'), 37);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Impacted Semi", 30);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.impacted_semi'), 38);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Intrusion", 20);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.intrusion'), 20);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Edentulism", 31);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.edentulism'), 31);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Ectopic", 21);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.ectopic'), 21);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Impacted", 19);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.impacted'), 19);
 
     posY = posY + buttonHeight + ySeparator;
     posX = startX;
 
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Rem Orthodo", 23);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.rem_orthodo'), 23);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Extrusion", 9);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.extrusion'), 9);
     posX = posX + xSeparator;
-    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, "Post", 10);
+    this.createMenuButton(posX, posY, buttonWidth, buttonHeight, this.i18n.t('menu.post'), 10);
 
 }
 
@@ -2032,3 +2020,29 @@ Engine.prototype.createMenuButton = function (x, y, width, height, text, id) {
     this.menuItems.push(menuitem);
 
 }
+
+/**
+ * Set the language for the application
+ * @param {string} language - Language code ('en' or 'pt')
+ */
+Engine.prototype.setLanguage = function(language) {
+    this.i18n.setLanguage(language);
+    this.createMenu(); // Recreate menu with new language
+    this.update();
+};
+
+/**
+ * Get the current language
+ * @returns {string} Current language code
+ */
+Engine.prototype.getLanguage = function() {
+    return this.i18n.getLanguage();
+};
+
+/**
+ * Get all available languages
+ * @returns {array} Array of language codes
+ */
+Engine.prototype.getAvailableLanguages = function() {
+    return this.i18n.getAvailableLanguages();
+};

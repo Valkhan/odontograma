@@ -15,112 +15,108 @@
  * @returns {Constants}
  */
 function Constants() {
-    "use strict";
-    // Damages for drawing
+    "use strict";    // Damages for drawing
     this.CARIES = 1;
-    this.CORONA_DEFINITIVA = 2;
-    this.CORONA_TEMPORAL = 3;
-    this.DIENTE_AUSENTE = 4;
-    this.FRACTURA = 5;
+    this.DEFINITIVE_CROWN = 2;
+    this.TEMPORARY_CROWN = 3;
+    this.MISSING_TOOTH = 4;
+    this.FRACTURE = 5;
     this.DIASTEMA = 8;
-    this.DIENTE_EXTRUIDO = 9;
-    this.DIENTE_EN_CLAVIJA = 10;
-    this.CURACION = 11;
-    this.PROTESIS_REMOVIBLE = 12;
-    this.MIGRACION = 13;
-    this.GIROVERSION = 14;
+    this.EXTRUDED_TOOTH = 9;
+    this.PEG_SHAPED_TOOTH = 10;
+    this.FILLING = 11;
+    this.REMOVABLE_PROSTHESIS = 12;
+    this.MIGRATION = 13;
+    this.ROTATION = 14;
     this.FUSION = 15;
-    this.REMANENTE_RADICULAR = 16;
-    this.DIENTE_INTRUIDO = 20;
-    this.ORTONDICO_REMOVIBLE = 23;
-    this.DIENTE_EN_ERUPCION = 24;
-    this.TRANSPOSICION_LEFT = 25;
-    this.TRANSPOSICION_RIGHT = 26;
-    this.SUPER_NUMERARIO = 27;
-    this.PULPAR = 28;
-    this.PROTESIS_TOTAL = 29;
-    this.PERNO_MUNON = 30;
-    this.EDENTULOA_TOTAL = 31;
-    this.ORTODONTICO_FIJO_END = 32;
-    this.ORTODONTICO_FIJO_CENTER = 33;
-    this.PROTESIS_FIJA_LEFT = 34;
-    this.PROTESIS_FIJA_CENTER = 35;
-    this.PROTESIS_FIJA_RIGHT = 36;
+    this.ROOT_REMNANT = 16;
+    this.INTRUDED_TOOTH = 20;
+    this.REMOVABLE_ORTHODONTIC = 23;
+    this.ERUPTING_TOOTH = 24;
+    this.TRANSPOSITION_LEFT = 25;
+    this.TRANSPOSITION_RIGHT = 26;
+    this.SUPERNUMERARY = 27;
+    this.PULP = 28;
+    this.TOTAL_PROSTHESIS = 29;
+    this.POST_AND_CORE = 30;
+    this.TOTAL_EDENTULISM = 31;
+    this.FIXED_ORTHODONTIC_END = 32;
+    this.FIXED_ORTHODONTIC_CENTER = 33;
+    this.FIXED_PROSTHESIS_LEFT = 34;
+    this.FIXED_PROSTHESIS_CENTER = 35;
+    this.FIXED_PROSTHESIS_RIGHT = 36;
 
     // Damages for writing
-    this.IMPLANTE = 6;
-    this.MACRODONCIA = 17;
-    this.MICRODONCIA = 18;
-    this.IMPACTACION = 19;
-    this.DIENTE_ECTOPICO = 21;
-    this.DIENTE_DISCR0MICO = 22;
-    this.SUPERFICIE_DESGASTADA = 37;
-    this.SEMI_IMPACTACI0N = 38;
-
-
+    this.IMPLANT = 6;
+    this.MACRODONTIA = 17;
+    this.MICRODONTIA = 18;
+    this.IMPACTION = 19;
+    this.ECTOPIC_TOOTH = 21;
+    this.DISCOLORED_TOOTH = 22;
+    this.WORN_SURFACE = 37;
+    this.SEMI_IMPACTION = 38;
     this.all = [
         this.CARIES,
-        this.CORONA_DEFINITIVA,
-        this.CORONA_TEMPORAL,
-        this.DIENTE_AUSENTE,
-        this.FRACTURA,
+        this.DEFINITIVE_CROWN,
+        this.TEMPORARY_CROWN,
+        this.MISSING_TOOTH,
+        this.FRACTURE,
         this.DIASTEMA,
-        this.DIENTE_EXTRUIDO,
-        this.DIENTE_EN_CLAVIJA,
-        this.CURACION,
-        this.PROTESIS_REMOVIBLE,
-        this.MIGRACION,
-        this.GIROVERSION,
+        this.EXTRUDED_TOOTH,
+        this.PEG_SHAPED_TOOTH,
+        this.FILLING,
+        this.REMOVABLE_PROSTHESIS,
+        this.MIGRATION,
+        this.ROTATION,
         this.FUSION,
-        this.REMANENTE_RADICULAR,
-        this.DIENTE_INTRUIDO,
-        this.ORTONDICO_REMOVIBLE,
-        this.DIENTE_EN_ERUPCION,
-        this.TRANSPOSICION_LEFT,
-        this.TRANSPOSICION_RIGHT,
-        this.SUPER_NUMERARIO,
-        this.PULPAR,
-        this.PROTESIS_TOTAL,
-        this.PERNO_MUNON,
-        this.EDENTULOA_TOTAL,
-        this.ORTODONTICO_FIJO_END,
-        this.ORTODONTICO_FIJO_CENTER,
-        this.PROTESIS_FIJA_LEFT,
-        this.PROTESIS_FIJA_CENTER,
-        this.PROTESIS_FIJA_RIGHT,
-        this.IMPLANTE,
-        this.MACRODONCIA,
-        this.MICRODONCIA,
-        this.IMPACTACION,
-        this.DIENTE_ECTOPICO,
-        this.DIENTE_DISCR0MICO,
-        this.SUPERFICIE_DESGASTADA,
-        this.SEMI_IMPACTACI0N
+        this.ROOT_REMNANT,
+        this.INTRUDED_TOOTH,
+        this.REMOVABLE_ORTHODONTIC,
+        this.ERUPTING_TOOTH,
+        this.TRANSPOSITION_LEFT,
+        this.TRANSPOSITION_RIGHT,
+        this.SUPERNUMERARY,
+        this.PULP,
+        this.TOTAL_PROSTHESIS,
+        this.POST_AND_CORE,
+        this.TOTAL_EDENTULISM,
+        this.FIXED_ORTHODONTIC_END,
+        this.FIXED_ORTHODONTIC_CENTER,
+        this.FIXED_PROSTHESIS_LEFT,
+        this.FIXED_PROSTHESIS_CENTER,
+        this.FIXED_PROSTHESIS_RIGHT,
+        this.IMPLANT,
+        this.MACRODONTIA,
+        this.MICRODONTIA,
+        this.IMPACTION,
+        this.ECTOPIC_TOOTH,
+        this.DISCOLORED_TOOTH,
+        this.WORN_SURFACE,
+        this.SEMI_IMPACTION
     ];
     /**
      * Method to check if a damage is writable, is text only
      * @param {type} arg id of the damage
      * @returns {Boolean} true if this damage is only text, else false
-     */
-    this.isWritable = function (arg) {
+     */    this.isWritable = function (arg) {
 
         var match = false;
 
-        if (arg === this.DIENTE_DISCR0MICO) {
+        if (arg === this.DISCOLORED_TOOTH) {
             match = true;
-        } else if (arg === this.DIENTE_ECTOPICO) {
+        } else if (arg === this.ECTOPIC_TOOTH) {
             match = true;
-        } else if (arg === this.IMPACTACION) {
+        } else if (arg === this.IMPACTION) {
             match = true;
-        } else if (arg === this.IMPLANTE) {
+        } else if (arg === this.IMPLANT) {
             match = true;
-        } else if (arg === this.MACRODONCIA) {
+        } else if (arg === this.MACRODONTIA) {
             match = true;
-        } else if (arg === this.MICRODONCIA) {
+        } else if (arg === this.MICRODONTIA) {
             match = true;
-        } else if (arg === this.SEMI_IMPACTACI0N) {
+        } else if (arg === this.SEMI_IMPACTION) {
             match = true;
-        } else if (arg === this.SUPERFICIE_DESGASTADA) {
+        } else if (arg === this.WORN_SURFACE) {
             match = true;
         }
 

@@ -63,7 +63,7 @@ Damage.prototype.drawFractura = function (context, settings) {
 };
 
 
-Damage.prototype.drawDienteAusente = function (context, settings) {
+Damage.prototype.drawMissingTooth = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -116,7 +116,7 @@ Damage.prototype.drawDienteAusente = function (context, settings) {
     context.restore();
 };
 
-Damage.prototype.drawPulpar = function (context, settings) {
+Damage.prototype.drawPulp = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -146,7 +146,7 @@ Damage.prototype.drawPulpar = function (context, settings) {
     context.restore();
 };
 
-Damage.prototype.drawMigracion = function (context, settings) {
+Damage.prototype.drawMigration = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -201,7 +201,7 @@ Damage.prototype.drawMigracion = function (context, settings) {
 
 };
 
-Damage.prototype.drawOrtondicoRemovible = function (context, settings) {
+Damage.prototype.drawRemovableOrthodontic = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -234,7 +234,7 @@ Damage.prototype.drawOrtondicoRemovible = function (context, settings) {
 
 };
 
-Damage.prototype.drawDienteExtruido = function (context, settings) {
+Damage.prototype.drawExtrudedTooth = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -282,7 +282,7 @@ Damage.prototype.drawDienteExtruido = function (context, settings) {
 
 };
 
-Damage.prototype.drawDienteIntruido = function (context, settings) {
+Damage.prototype.drawIntrudedTooth = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -330,7 +330,7 @@ Damage.prototype.drawDienteIntruido = function (context, settings) {
 
 };
 
-Damage.prototype.drawProtesisRemovible = function (context, settings) {
+Damage.prototype.drawRemovableProsthesis = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -371,7 +371,7 @@ Damage.prototype.drawProtesisRemovible = function (context, settings) {
 
 };
 
-Damage.prototype.drawRemanenteRadicular = function (context, settings) {
+Damage.prototype.drawRootRemnant = function (context, settings) {
     "use strict";
     context.beginPath();
 
@@ -393,7 +393,7 @@ Damage.prototype.drawRemanenteRadicular = function (context, settings) {
 
 };
 
-Damage.prototype.drawGiroversion = function drawGiroversion(context, settings) {
+Damage.prototype.drawRotation = function drawRotation(context, settings) {
     "use strict";
     context.beginPath();
 
@@ -1154,7 +1154,7 @@ Damage.prototype.drawTransposicionRight = function (context, settings) {
     context.restore();
 };
 
-Damage.prototype.drawDienteDiscomico = function (context, settings) {
+Damage.prototype.drawDiscoloredTooth = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1168,7 +1168,7 @@ Damage.prototype.drawDienteDiscomico = function (context, settings) {
 
 };
 
-Damage.prototype.drawDienteEctopico = function (context, settings) {
+Damage.prototype.drawEctopicTooth = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1182,7 +1182,7 @@ Damage.prototype.drawDienteEctopico = function (context, settings) {
 
 };
 
-Damage.prototype.drawImpactacion = function (context, settings) {
+Damage.prototype.drawImpaction = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1196,7 +1196,7 @@ Damage.prototype.drawImpactacion = function (context, settings) {
 
 };
 
-Damage.prototype.drawImplante = function (context, settings) {
+Damage.prototype.drawImplant = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1210,7 +1210,7 @@ Damage.prototype.drawImplante = function (context, settings) {
 
 };
 
-Damage.prototype.drawMacrodoncia = function (context, settings) {
+Damage.prototype.drawMacrodontia = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1224,7 +1224,7 @@ Damage.prototype.drawMacrodoncia = function (context, settings) {
 
 };
 
-Damage.prototype.drawMicrodonica = function (context, settings) {
+Damage.prototype.drawMicrodontia = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1238,7 +1238,7 @@ Damage.prototype.drawMicrodonica = function (context, settings) {
 
 };
 
-Damage.prototype.drawSemiImpactaion = function (context, settings) {
+Damage.prototype.drawSemiImpaction = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1252,7 +1252,7 @@ Damage.prototype.drawSemiImpactaion = function (context, settings) {
 
 };
 
-Damage.prototype.drawSuperficieDesgastada = function (context, settings) {
+Damage.prototype.drawWornSurface = function (context, settings) {
     "use strict";
     this.rect.highlightWithColor(context, "#ffffff", 1);
 
@@ -1274,147 +1274,143 @@ Damage.prototype.render = function (context, settings, constants) {
 
         if (this.id === constants.FRACTURA) {
             this.drawFractura(context, settings);
+        }        if (this.id === constants.MISSING_TOOTH) {
+            this.drawMissingTooth(context, settings);
         }
 
-        if (this.id === constants.DIENTE_AUSENTE) {
-            this.drawDienteAusente(context, settings);
+        if (this.id === constants.PULP) {
+            this.drawPulp(context, settings);
         }
 
-        if (this.id === constants.PULPAR) {
-            this.drawPulpar(context, settings);
+        if (this.id === constants.MIGRATION) {
+            this.drawMigration(context, settings);
         }
 
-        if (this.id === constants.MIGRACION) {
-            this.drawMigracion(context, settings);
+        if (this.id === constants.REMOVABLE_ORTHODONTIC) {
+            this.drawRemovableOrthodontic(context, settings);
         }
 
-        if (this.id === constants.ORTONDICO_REMOVIBLE) {
-            this.drawOrtondicoRemovible(context, settings);
+        if (this.id === constants.EXTRUDED_TOOTH) {
+            this.drawExtrudedTooth(context, settings);
         }
 
-        if (this.id === constants.DIENTE_EXTRUIDO) {
-            this.drawDienteExtruido(context, settings);
+        if (this.id === constants.INTRUDED_TOOTH) {
+            this.drawIntrudedTooth(context, settings);
         }
 
-        if (this.id === constants.DIENTE_INTRUIDO) {
-            this.drawDienteIntruido(context, settings);
+        if (this.id === constants.REMOVABLE_PROSTHESIS) {
+            this.drawRemovableProsthesis(context, settings);
         }
 
-        if (this.id === constants.PROTESIS_REMOVIBLE) {
-            this.drawProtesisRemovible(context, settings);
+        if (this.id === constants.ROOT_REMNANT) {
+            this.drawRootRemnant(context, settings);
         }
 
-        if (this.id === constants.REMANENTE_RADICULAR) {
-            this.drawRemanenteRadicular(context, settings);
+        if (this.id === constants.ROTATION) {
+            this.drawRotation(context, settings);
+        }        if (this.id === constants.POST_AND_CORE) {
+            this.drawPostAndCore(context, settings);
         }
 
-        if (this.id === constants.GIROVERSION) {
-            this.drawGiroversion(context, settings);
+        if (this.id === constants.ERUPTING_TOOTH) {
+            this.drawEruptingTooth(context, settings);
         }
 
-        if (this.id === constants.PERNO_MUNON) {
-            this.drawPernoMunon(context, settings);
+        if (this.id === constants.TOTAL_PROSTHESIS) {
+            this.drawTotalProsthesis(context, settings);
         }
 
-        if (this.id === constants.DIENTE_EN_ERUPCION) {
-            this.drawDienteEnErupcion(context, settings);
+        if (this.id === constants.TOTAL_EDENTULISM) {
+            this.drawTotalEdentulism(context, settings);
         }
 
-        if (this.id === constants.PROTESIS_TOTAL) {
-            this.drawProtesisTotal(context, settings);
-        }
-
-        if (this.id === constants.EDENTULOA_TOTAL) {
-            this.drawEdentuloTotal(context, settings);
-        }
-
-        if (this.id === constants.DIENTE_EN_CLAVIJA) {
-            this.drawDienteEnClavija(context, settings);
+        if (this.id === constants.PEG_SHAPED_TOOTH) {
+            this.drawPegShapedTooth(context, settings);
         }
 
         if (this.id === constants.FUSION) {
             this.drawFusion(context, settings);
         }
 
-        if (this.id === constants.CORONA_DEFINITIVA) {
-            this.drawCoronaDefinitiva(context, settings);
+        if (this.id === constants.DEFINITIVE_CROWN) {
+            this.drawDefinitiveCrown(context, settings);
         }
 
-        if (this.id === constants.CORONA_TEMPORAL) {
-            this.drawCoronaTemporal(context, settings);
+        if (this.id === constants.TEMPORARY_CROWN) {
+            this.drawTemporaryCrown(context, settings);
         }
 
         if (this.id === constants.DIASTEMA) {
             this.drawDiastema(context, settings);
         }
 
-        if (this.id === constants.SUPER_NUMERARIO) {
-            this.drawSuperNumerario(context, settings);
+        if (this.id === constants.SUPERNUMERARY) {
+            this.drawSupernumerary(context, settings);
         }
 
-        if (this.id === constants.ORTODONTICO_FIJO_END) {
-            this.drawOrtodonticoFijoEnd(context, settings);
+        if (this.id === constants.FIXED_ORTHODONTIC_END) {
+            this.drawFixedOrthodonticEnd(context, settings);
         }
 
-        if (this.id === constants.ORTODONTICO_FIJO_CENTER) {
-            this.drawOrtodonticoFijoCenter(context, settings);
+        if (this.id === constants.FIXED_ORTHODONTIC_CENTER) {
+            this.drawFixedOrthodonticCenter(context, settings);
         }
 
-        if (this.id === constants.PROTESIS_FIJA_RIGHT) {
-            this.drawProtesisFijaRight(context, settings);
+        if (this.id === constants.FIXED_PROSTHESIS_RIGHT) {
+            this.drawFixedProsthesisRight(context, settings);
         }
 
-        if (this.id === constants.PROTESIS_FIJA_CENTER) {
-            this.drawProtesisFijaCenter(context, settings);
+        if (this.id === constants.FIXED_PROSTHESIS_CENTER) {
+            this.drawFixedProsthesisCenter(context, settings);
         }
 
-        if (this.id === constants.PROTESIS_FIJA_LEFT) {
-            this.drawProtesisFijaLeft(context, settings);
+        if (this.id === constants.FIXED_PROSTHESIS_LEFT) {
+            this.drawFixedProsthesisLeft(context, settings);
         }
 
-        if (this.id === constants.TRANSPOSICION_LEFT) {
-            this.drawTransposicionLeft(context, settings);
+        if (this.id === constants.TRANSPOSITION_LEFT) {
+            this.drawTranspositionLeft(context, settings);
         }
 
-        if (this.id === constants.TRANSPOSICION_RIGHT) {
-            this.drawTransposicionRight(context, settings);
+        if (this.id === constants.TRANSPOSITION_RIGHT) {
+            this.drawTranspositionRight(context, settings);
         }
 
-        if (this.id === constants.DIENTE_DISCR0MICO) {
-            this.drawDienteDiscomico(context, settings);
+        if (this.id === constants.DISCOLORED_TOOTH) {
+            this.drawDiscoloredTooth(context, settings);
         }
 
-        if (this.id === constants.IMPACTACION) {
-            this.drawImpactacion(context, settings);
+        if (this.id === constants.IMPACTION) {
+            this.drawImpaction(context, settings);
         }
 
-        if (this.id === constants.DIENTE_ECTOPICO) {
-            this.drawDienteEctopico(context, settings);
+        if (this.id === constants.ECTOPIC_TOOTH) {
+            this.drawEctopicTooth(context, settings);
         }
 
-        if (this.id === constants.IMPLANTE) {
-            this.drawImplante(context, settings);
+        if (this.id === constants.IMPLANT) {
+            this.drawImplant(context, settings);
         }
 
-        if (this.id === constants.MACRODONCIA) {
-            this.drawMacrodoncia(context, settings);
+        if (this.id === constants.MACRODONTIA) {
+            this.drawMacrodontia(context, settings);
         }
 
-        if (this.id === constants.MICRODONCIA) {
-            this.drawMicrodonica(context, settings);
+        if (this.id === constants.MICRODONTIA) {
+            this.drawMicrodontia(context, settings);
         }
 
-        if (this.id === constants.SEMI_IMPACTACI0N) {
-            this.drawSemiImpactaion(context, settings);
+        if (this.id === constants.SEMI_IMPACTION) {
+            this.drawSemiImpaction(context, settings);
         }
 
-        if (this.id === constants.SUPERFICIE_DESGASTADA) {
-            this.drawSuperficieDesgastada(context, settings);
+        if (this.id === constants.WORN_SURFACE) {
+            this.drawWornSurface(context, settings);
         }
     
     } else {
         
-        console.log("Will render diagnostic");
+        console.log(this.i18n ? this.i18n.t('console.render_diagnostic') : 'Will render diagnostic');
         
     }
 
