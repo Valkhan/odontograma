@@ -16,7 +16,7 @@
 function I18n() {
     "use strict";
     
-    this.currentLanguage = 'en'; // Default language is English
+    this.currentLanguage = 'pt'; // Default language is Portuguese
     
     this.translations = {
         'en': {
@@ -94,6 +94,9 @@ function I18n() {
             'surface.vestibular': 'V',
             'surface.lingual': 'L',
             'surface.occlusal': 'O',
+            
+            // Language selector
+            'language.label': 'Language:',
             
             // Help modal
             'help.title': 'Odontograph - User Guide',
@@ -204,6 +207,9 @@ function I18n() {
             'surface.vestibular': 'V',
             'surface.lingual': 'L',
             'surface.occlusal': 'O',
+            
+            // Language selector
+            'language.label': 'Idioma:',
             
             // Help modal
             'help.title': 'Odontograma - Guia do Usuário',

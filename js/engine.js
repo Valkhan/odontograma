@@ -59,6 +59,9 @@ function Engine() {
 
     // internationalization
     this.i18n = new I18n();
+    
+    // Set default language from settings
+    this.i18n.setLanguage(this.settings.DEFAULT_LANGUAGE);
 
     // constants for application
     this.constants = new Constants();

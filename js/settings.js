@@ -23,6 +23,9 @@ function Settings() {
     this.TOOTH_PADDING = 0;
     this.RECT_DIMEN = 10;
     
+    // language settings
+    this.DEFAULT_LANGUAGE = "pt"; // Default language is Portuguese
+    
     // colors
     this.COLOR_ON_TOUCH = "#FF8B00";
     this.COLOR_HIGHLIGHT = "#1CDE02";

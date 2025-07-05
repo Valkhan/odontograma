@@ -168,10 +168,9 @@
 </head>
 
 <body oncontextmenu="return false;">    <div class="language-selector">
-        <label for="languageSelect">Language:</label>
-        <select id="languageSelect">
+        <label for="languageSelect" id="languageLabel">Idioma:</label>        <select id="languageSelect">
             <option value="en">English</option>
-            <option value="pt">Português</option>
+            <option value="pt" selected>Português</option>
         </select>
         <button id="helpButton" class="help-button">Help (H)</button>
     </div>
@@ -308,6 +307,9 @@
         }        // Function to update help modal texts based on current language
         function updateHelpModalTexts() {
             if (!engine.i18n) return;
+            
+            // Update language selector label
+            document.getElementById('languageLabel').textContent = engine.i18n.t('language.label');
             
             // Update help button text
             document.getElementById('helpButton').textContent = engine.i18n.t('help.button');

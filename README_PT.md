@@ -24,7 +24,7 @@ Um sistema de Odontograma virtual desenvolvido em JavaScript que permite a cria�
 
 ### Internacionalização (i18n)
 - **Código completamente traduzido para inglês**: Todas as constantes e variáveis agora usam nomenclatura em inglês
-- **Interface multilíngue**: Suporte para inglês (padrão) e português
+- **Interface multilíngue**: Suporte para português (padrão) e inglês
 - **Seletor de idioma**: Interface para alternar entre idiomas em tempo real
 - **Traduções contextuais**: Textos da interface, menus, mensagens e labels traduzidos
 
@@ -165,3 +165,31 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 - Comunidade odontológica pela validação dos casos de uso
 - Contribuidores que ajudaram com traduções e melhorias
+
+## Configurações de Idioma
+
+### Idioma Padrão
+O sistema agora usa **português como idioma padrão**. Esta configuração é definida em:
+
+- **`js/settings.js`**: Configuração `DEFAULT_LANGUAGE = "pt"`
+- **`js/i18n.js`**: Inicialização com `currentLanguage = 'pt'`
+- **`index.html`**: Seletor de idioma com português pré-selecionado
+
+### Alterando o Idioma Padrão
+Para alterar o idioma padrão do sistema:
+
+1. **Edite `js/settings.js`**:
+   ```javascript
+   this.DEFAULT_LANGUAGE = "en"; // ou "pt"
+   ```
+
+2. **Edite `js/i18n.js`**:
+   ```javascript
+   this.currentLanguage = 'en'; // ou 'pt'
+   ```
+
+3. **Edite `index.html`**:
+   ```html
+   <option value="en" selected>English</option>
+   <option value="pt">Português</option>
+   ```
