@@ -2101,9 +2101,22 @@ Engine.prototype.getTeethData = function() {
     for (var i = 0; i < this.mouth.length; i++) {
         var tooth = this.mouth[i];
         if (tooth) {
+            // Extract only damage IDs from damage objects
+            var damageIds = [];
+            if (tooth.damages && Array.isArray(tooth.damages)) {
+                for (var j = 0; j < tooth.damages.length; j++) {
+                    var damage = tooth.damages[j];
+                    if (typeof damage === 'object' && damage.id !== undefined) {
+                        damageIds.push(damage.id);
+                    } else if (typeof damage === 'number') {
+                        damageIds.push(damage);
+                    }
+                }
+            }
+            
             teethData.push({
                 id: tooth.id,
-                damages: tooth.damages ? tooth.damages.slice() : [], // copy array or empty array
+                damages: damageIds, // Only export damage IDs
                 customText: tooth.customText || "",
                 isChild: tooth.isChild || false
             });
@@ -2131,7 +2144,26 @@ Engine.prototype.loadTeethData = function(teethData) {
         var tooth = this.getToothById(toothData.id);
         
         if (tooth) {
-            tooth.damages = toothData.damages || [];
+            // Process damages - handle both old format (objects) and new format (numbers)
+            var damageIds = [];
+            if (toothData.damages && Array.isArray(toothData.damages)) {
+                for (var j = 0; j < toothData.damages.length; j++) {
+                    var damage = toothData.damages[j];
+                    if (typeof damage === 'object' && damage.id !== undefined) {
+                        // Old format: damage object with id property
+                        damageIds.push(damage.id);
+                    } else if (typeof damage === 'number') {
+                        // New format: just the damage ID
+                        damageIds.push(damage);
+                    }
+                }
+            }
+            
+            // Apply damages to tooth
+            for (var k = 0; k < damageIds.length; k++) {
+                tooth.addDamage(damageIds[k]);
+            }
+            
             tooth.customText = toothData.customText || "";
             tooth.isChild = toothData.isChild || false;
         }

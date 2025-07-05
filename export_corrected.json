@@ -1,0 +1,206 @@
+{
+  "patientName": "Bardur Thomsen",
+  "patientId": "1002",
+  "location": "New York",
+  "appointmentNumber": "hc 001",
+  "date": "26/02/2018",
+  "dentist": "dentist one",
+  "observations": "Test observations",
+  "specifications": "Test specifications",
+  "teeth": [
+    {
+      "id": 18,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 17,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 16,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 15,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 14,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 13,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 12,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 11,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 21,
+      "damages": [4],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 22,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 23,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 24,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 25,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 26,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 27,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 28,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 48,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 47,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 46,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 45,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 44,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 43,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 42,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 41,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 31,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 32,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 33,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 34,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 35,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 36,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 37,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    },
+    {
+      "id": 38,
+      "damages": [],
+      "customText": "",
+      "isChild": false
+    }
+  ],
+  "exportDate": "2025-07-05T12:02:00.827Z",
+  "version": "2.0"
+}
