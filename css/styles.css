@@ -232,3 +232,166 @@ body {
         justify-content: center;
     }
 }
+
+/* Main container with canvas and report */
+.main-container {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+    align-items: flex-start;
+}
+
+/* Report panel styles */
+.report-panel {
+    width: 350px;
+    min-height: 500px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.report-header {
+    background: #0052ff;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.toggle-report-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.toggle-report-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.report-content {
+    padding: 15px;
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.patient-info,
+.teeth-report,
+.summary-report {
+    margin-bottom: 20px;
+}
+
+.patient-info h4,
+.teeth-report h4,
+.summary-report h4 {
+    color: #0052ff;
+    font-size: 14px;
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.patient-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 0;
+    font-size: 12px;
+}
+
+.patient-detail .label {
+    font-weight: bold;
+    color: #555;
+}
+
+.patient-detail .value {
+    color: #333;
+}
+
+.tooth-item {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.tooth-number {
+    font-weight: bold;
+    color: #0052ff;
+    margin-bottom: 4px;
+}
+
+.tooth-treatments {
+    color: #555;
+    line-height: 1.4;
+}
+
+.treatment-item {
+    margin-bottom: 2px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 12px;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-treatment {
+    font-weight: bold;
+    color: #333;
+}
+
+.summary-count {
+    background: #0052ff;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+.report-hidden {
+    display: none;
+}
+
+@media (max-width: 1200px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .report-panel {
+        width: 100%;
+        max-width: 648px;
+    }
+}
+
+@media (max-width: 768px) {
+    .file-controls,
+    .language-selector {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 10px;
+        justify-content: center;
+    }
+}

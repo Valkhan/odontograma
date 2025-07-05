@@ -173,24 +173,22 @@ Engine.prototype.init = function () {
     this.spaces = this.odontSpacesAdult;
 
     this.createMenu()
-
-
     this.adult = new MenuItem();
     this.adult.setUp(10, 150, 75, 20);
-    this.adult.textBox.text = "Adult";
+    this.adult.textBox.text = this.i18n.t('button.adult');
     this.adult.active = true;
     this.buttons.push(this.adult);
 
     this.child = new MenuItem();
     this.child.setUp(90, 150, 75, 20);
-    this.child.textBox.text = "Child";
+    this.child.textBox.text = this.i18n.t('button.child');
     this.child.active = false;
     this.buttons.push(this.child);
 
     this.clear = new MenuItem()
     this.clear = new MenuItem();
     this.clear.setUp((this.canvas.width-10) - 76, 150, 75, 20);
-    this.clear.textBox.text = "Reset";
+    this.clear.textBox.text = this.i18n.t('button.reset');
     this.clear.active = false;
     this.buttons.push(this.clear);
 
@@ -208,11 +206,12 @@ Engine.prototype.update = function () {
     if (!this.preview) {
         this.renderer.render(this.mouth, this.settings, this.constants);
 
-        this.renderer.render(this.spaces, this.settings, this.constants);
+        this.renderer.render(this.spaces, this.settings, this.constants);        this.renderer.render(this.menuItems, this.settings, this.constants);
 
-        this.renderer.render(this.menuItems, this.settings, this.constants);
-
-        this.renderer.render(this.buttons, this.settings, this.constants);
+        // Don't render buttons during print preview
+        if (!this.preview) {
+            this.renderer.render(this.buttons, this.settings, this.constants);
+        }
 
         if (this.settings.DEBUG) {
 
@@ -2028,14 +2027,29 @@ Engine.prototype.createMenuButton = function (x, y, width, height, text, id) {
  * Set the language for the application
  * @param {string} language - Language code ('en' or 'pt')
  */
-Engine.prototype.setLanguage = function(language) {
-    this.i18n.setLanguage(language);
+Engine.prototype.setLanguage = function(language) {    this.i18n.setLanguage(language);
+    this.updateButtonTexts(); // Update button texts with new language
     this.createMenu(); // Recreate menu with new language
     this.update();
     
     // Update help modal texts if function exists
     if (typeof updateHelpModalTexts === 'function') {
         updateHelpModalTexts();
+    }
+};
+
+/**
+ * Update button texts based on current language
+ */
+Engine.prototype.updateButtonTexts = function() {
+    if (this.adult) {
+        this.adult.textBox.text = this.i18n.t('button.adult');
+    }
+    if (this.child) {
+        this.child.textBox.text = this.i18n.t('button.child');
+    }
+    if (this.clear) {
+        this.clear.textBox.text = this.i18n.t('button.reset');
     }
 };
 
@@ -2061,14 +2075,14 @@ Engine.prototype.getAvailableLanguages = function() {
  */
 Engine.prototype.getPatientData = function() {
     return {
-        patientName: this.patientName,
-        patientId: this.patientId,
-        location: this.location,
-        appointmentNumber: this.appointmentNumber,
-        date: this.date,
-        dentist: this.dentist,
-        observations: this.observations,
-        specifications: this.specifications
+        patientName: this.treatmentData.patient || "",
+        patientId: this.treatmentData.number || "",
+        location: this.treatmentData.office || "",
+        appointmentNumber: this.treatmentData.treatmentNumber || "",
+        date: this.treatmentData.treatmentDate || "",
+        dentist: this.treatmentData.dentist || "",
+        observations: this.treatmentData.observations || "",
+        specifications: this.treatmentData.specs || ""
     };
 };
 
@@ -2079,14 +2093,21 @@ Engine.prototype.getPatientData = function() {
 Engine.prototype.getTeethData = function() {
     var teethData = [];
     
-    for (var i = 0; i < this.teeth.length; i++) {
-        var tooth = this.teeth[i];
-        teethData.push({
-            id: tooth.id,
-            damages: tooth.damages.slice(), // copy array
-            customText: tooth.customText || "",
-            isChild: tooth.isChild || false
-        });
+    // Check if mouth array exists and is valid
+    if (!this.mouth || !Array.isArray(this.mouth)) {
+        return teethData;
+    }
+    
+    for (var i = 0; i < this.mouth.length; i++) {
+        var tooth = this.mouth[i];
+        if (tooth) {
+            teethData.push({
+                id: tooth.id,
+                damages: tooth.damages ? tooth.damages.slice() : [], // copy array or empty array
+                customText: tooth.customText || "",
+                isChild: tooth.isChild || false
+            });
+        }
     }
     
     return teethData;
@@ -2123,9 +2144,13 @@ Engine.prototype.loadTeethData = function(teethData) {
  * @returns {object} Tooth object or null
  */
 Engine.prototype.getToothById = function(toothId) {
-    for (var i = 0; i < this.teeth.length; i++) {
-        if (this.teeth[i].id === toothId) {
-            return this.teeth[i];
+    if (!this.mouth || !Array.isArray(this.mouth)) {
+        return null;
+    }
+    
+    for (var i = 0; i < this.mouth.length; i++) {
+        if (this.mouth[i].id === toothId) {
+            return this.mouth[i];
         }
     }
     return null;
@@ -2135,8 +2160,12 @@ Engine.prototype.getToothById = function(toothId) {
  * Reset all teeth data
  */
 Engine.prototype.resetAllTeeth = function() {
-    for (var i = 0; i < this.teeth.length; i++) {
-        this.teeth[i].damages = [];
-        this.teeth[i].customText = "";
+    if (!this.mouth || !Array.isArray(this.mouth)) {
+        return;
+    }
+    
+    for (var i = 0; i < this.mouth.length; i++) {
+        this.mouth[i].damages = [];
+        this.mouth[i].customText = "";
     }
 };

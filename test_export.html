@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Exportação</title>
+</head>
+<body>
+    <h1>Teste de Exportação</h1>
+    <button onclick="testExport()">Testar Exportação</button>
+    <div id="result"></div>
+
+    <script>
+        function testExport() {
+            try {
+                var testData = {
+                    patientName: "Teste",
+                    patientId: "123",
+                    location: "São Paulo",
+                    appointmentNumber: "001",
+                    date: "15/01/2025",
+                    dentist: "Dr. Teste",
+                    observations: "Teste de exportação",
+                    specifications: "Teste",
+                    teeth: [
+                        {
+                            id: 11,
+                            damages: [1, 5],
+                            customText: "CAR",
+                            isChild: false
+                        }
+                    ],
+                    exportDate: new Date().toISOString(),
+                    version: "2.0"
+                };
+                
+                var jsonString = JSON.stringify(testData, null, 2);
+                var filename = 'teste_export.json';
+                
+                downloadFile(jsonString, filename, 'application/json');
+                
+                document.getElementById('result').innerHTML = '<p style="color: green;">Exportação realizada com sucesso!</p>';
+                
+            } catch (error) {
+                document.getElementById('result').innerHTML = '<p style="color: red;">Erro na exportação: ' + error.message + '</p>';
+            }
+        }
+
+        function downloadFile(content, filename, mimeType) {
+            var blob = new Blob([content], { type: mimeType });
+            var url = URL.createObjectURL(blob);
+            
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>

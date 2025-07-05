@@ -116,11 +116,33 @@
                             Press P to preview and print the odontogram.
                         </div>
                     </div>
+                </div>            </div>
+        </div>
+    </div>
+    
+    <div class="main-container">
+        <canvas id="canvas" width="648" height="800" crossorigin="anonymous"></canvas>
+        <div id="reportPanel" class="report-panel">
+            <div class="report-header">
+                <h3 id="reportTitle">Relatório do Odontograma</h3>
+                <button id="toggleReportBtn" class="toggle-report-btn">Ocultar</button>
+            </div>
+            <div class="report-content">
+                <div class="patient-info">
+                    <h4 id="patientInfoTitle">Informações do Paciente</h4>
+                    <div id="patientDetails"></div>
+                </div>
+                <div class="teeth-report">
+                    <h4 id="teethReportTitle">Diagnósticos por Dente</h4>
+                    <div id="teethDetails"></div>
+                </div>
+                <div class="summary-report">
+                    <h4 id="summaryTitle">Resumo dos Tratamentos</h4>
+                    <div id="summaryDetails"></div>
                 </div>
             </div>
         </div>
     </div>
-      <canvas id="canvas" width="648" height="800" crossorigin="anonymous"></canvas>
 </body>
 
 </html>
