@@ -51,6 +51,58 @@ A modal de ajuda inclui:
 - **Adição de Notas**: Como inserir códigos dentários personalizados
 - **Impressão**: Como imprimir o odontograma
 
+### Relatório do Odontograma
+
+O sistema inclui um **painel de relatório em tempo real** que aparece ao lado do canvas principal:
+
+#### Funcionalidades do Relatório:
+- **Informações do Paciente**: Exibe dados inseridos nos campos de texto
+- **Diagnósticos por Dente**: Lista detalhada de tratamentos aplicados a cada dente
+- **Resumo dos Tratamentos**: Contagem total de cada tipo de tratamento
+
+#### Como Usar o Relatório:
+
+1. **Visualização**: O relatório aparece automaticamente no lado direito da interface
+2. **Atualização Automática**: O relatório é atualizado automaticamente quando você:
+   - Aplica tratamentos aos dentes (clique nos dentes)
+   - Importa dados de pacientes
+   - Altera informações do paciente
+   - Adiciona ou remove diagnósticos
+
+3. **Controle de Visibilidade**: 
+   - Use o botão "Ocultar"/"Mostrar" no cabeçalho do relatório
+   - O relatório permanece oculto durante a impressão
+
+4. **Exportação**: O relatório pode ser exportado em formato:
+   - **JSON**: Para reimportação no sistema
+   - **TXT**: Relatório legível para impressão ou arquivamento
+
+#### Estrutura do Relatório:
+
+**Informações do Paciente**
+- Nome, ID, Local, Número da Consulta
+- Data, Dentista, Observações, Especificações
+
+**Diagnósticos por Dente**
+- Lista de dentes com tratamentos aplicados
+- Descrição detalhada de cada tratamento
+- Notas personalizadas adicionadas
+
+**Resumo dos Tratamentos**
+- Contagem total de cada tipo de tratamento
+- Estatísticas gerais do odontograma
+
+#### Solução de Problemas:
+
+Se o relatório não estiver atualizando:
+1. Verifique se o painel está visível (não oculto)
+2. Recarregue a página
+3. Certifique-se de que está aplicando tratamentos corretamente nos dentes
+4. Após importar um arquivo, o relatório deve atualizar automaticamente Explicação sobre as áreas clicáveis dos dentes
+- **Alteração de Idioma**: Como usar o seletor de idioma
+- **Adição de Notas**: Como inserir códigos dentários personalizados
+- **Impressão**: Como imprimir o odontograma
+
 ### Navegação Básica
 
 - **Setas ←/→**: Alternar entre vista de adulto e criança

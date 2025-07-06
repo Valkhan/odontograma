@@ -159,6 +159,9 @@ function setupReportPanel() {
         }
     });
     
+    // Add event listeners for patient form fields
+    addPatientFormListeners();
+    
     // Update report when teeth data changes
     setInterval(function() {
         // Only update if engine is fully initialized
@@ -288,6 +291,9 @@ function loadPatientFile(file) {
             // Update display
             engine.update();
             
+            // Update report after import
+            updateReport();
+            
             alert(engine.i18n.t('file.load_success'));
             
         } catch (error) {
@@ -380,29 +386,17 @@ function updateReport() {
  */
 function updatePatientInfo() {
     var patientData = engine.getPatientData();
-    var patientDetails = document.getElementById('patientDetails');
     
-    var fields = [
-        { key: 'patientName', label: 'report.patient.name' },
-        { key: 'patientId', label: 'report.patient.id' },
-        { key: 'location', label: 'report.patient.location' },
-        { key: 'appointmentNumber', label: 'report.patient.appointment' },
-        { key: 'date', label: 'report.patient.date' },
-        { key: 'dentist', label: 'report.patient.dentist' },
-        { key: 'observations', label: 'report.patient.observations' },
-        { key: 'specifications', label: 'report.patient.specifications' }
-    ];
+    // Update form fields with patient data
+    var patientNameField = document.getElementById('patientName');
+    var patientDateField = document.getElementById('patientDate');
+    var patientObservationsField = document.getElementById('patientObservations');
+    var patientSpecificationsField = document.getElementById('patientSpecifications');
     
-    var html = '';
-    fields.forEach(function(field) {
-        var value = patientData[field.key] || '-';
-        html += '<div class="patient-detail">';
-        html += '<span class="label">' + engine.i18n.t(field.label) + ':</span>';
-        html += '<span class="value">' + escapeHtml(value) + '</span>';
-        html += '</div>';
-    });
-    
-    patientDetails.innerHTML = html;
+    if (patientNameField) patientNameField.value = patientData.patientName || '';
+    if (patientDateField) patientDateField.value = patientData.date || '';
+    if (patientObservationsField) patientObservationsField.value = patientData.observations || '';
+    if (patientSpecificationsField) patientSpecificationsField.value = patientData.specifications || '';
 }
 
 /**
@@ -518,6 +512,17 @@ function updateReportTexts() {
     document.getElementById('patientInfoTitle').textContent = engine.i18n.t('report.patient_info');
     document.getElementById('teethReportTitle').textContent = engine.i18n.t('report.teeth_report');
     document.getElementById('summaryTitle').textContent = engine.i18n.t('report.summary');
+    
+    // Update form labels
+    document.getElementById('patientNameLabel').textContent = engine.i18n.t('report.patient.name') + ':';
+    document.getElementById('patientDateLabel').textContent = engine.i18n.t('report.patient.date') + ':';
+    document.getElementById('patientObservationsLabel').textContent = engine.i18n.t('report.patient.observations') + ':';
+    document.getElementById('patientSpecificationsLabel').textContent = engine.i18n.t('report.patient.specifications') + ':';
+    
+    // Update placeholders
+    document.getElementById('patientName').placeholder = engine.i18n.t('report.patient.name_placeholder');
+    document.getElementById('patientObservations').placeholder = engine.i18n.t('report.patient.observations_placeholder');
+    document.getElementById('patientSpecifications').placeholder = engine.i18n.t('report.patient.specifications_placeholder');
     
     var toggleBtn = document.getElementById('toggleReportBtn');
     var reportContent = document.querySelector('.report-content');
@@ -641,6 +646,45 @@ function createTextReport(exportData) {
     report.push("=======================================");
     
     return report.join('\n');
+}
+
+/**
+ * Add event listeners for patient form fields
+ */
+function addPatientFormListeners() {
+    var patientNameField = document.getElementById('patientName');
+    var patientDateField = document.getElementById('patientDate');
+    var patientObservationsField = document.getElementById('patientObservations');
+    var patientSpecificationsField = document.getElementById('patientSpecifications');
+    
+    // Add change listeners to update engine data
+    if (patientNameField) {
+        patientNameField.addEventListener('input', function() {
+            engine.treatmentData.patient = this.value;
+            updateReport();
+        });
+    }
+    
+    if (patientDateField) {
+        patientDateField.addEventListener('input', function() {
+            engine.treatmentData.treatmentDate = this.value;
+            updateReport();
+        });
+    }
+    
+    if (patientObservationsField) {
+        patientObservationsField.addEventListener('input', function() {
+            engine.treatmentData.observations = this.value;
+            updateReport();
+        });
+    }
+    
+    if (patientSpecificationsField) {
+        patientSpecificationsField.addEventListener('input', function() {
+            engine.treatmentData.specs = this.value;
+            updateReport();
+        });
+    }
 }
 
 // Initialize application when DOM is loaded

@@ -15,21 +15,65 @@ body {
     margin: 0px;
     padding: 0px;
     font-family: Arial, sans-serif;
+    padding-top: 80px; /* Space for header */
+}
+
+/* Header styles */
+.app-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-left {
+    flex: 1;
+}
+
+.header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.header-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.app-title {
+    margin: 0;
+    color: #0052ff;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* File controls */
+.file-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 /* Language selector and controls */
 .language-selector {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     background: rgba(255, 255, 255, 0.9);
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 .help-button,
@@ -63,20 +107,6 @@ body {
 }
 
 /* File controls */
-.file-controls {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1000;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
 .file-input {
     display: none;
 }
@@ -370,6 +400,46 @@ body {
 
 .report-hidden {
     display: none;
+}
+
+/* Form styles for patient information */
+.patient-form {
+    padding: 10px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+    font-size: 12px;
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #0052ff;
+    box-shadow: 0 0 3px rgba(0, 82, 255, 0.3);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 60px;
 }
 
 @media (max-width: 1200px) {

@@ -223,10 +223,13 @@ Engine.prototype.update = function () {
 
             this.renderer.renderText("Selected Damage : " + this.selectedDamage,
                 220, this.canvas.height, "#000000");
-        }
-
-    } else {
+        }    } else {
         this.printPreview();
+    }
+    
+    // Notify report update if available
+    if (typeof updateReport === 'function') {
+        updateReport();
     }
 };
 
@@ -1792,6 +1795,17 @@ Engine.prototype.loadPatientData = function (office, patient, number,
     this.treatmentData.dentist = dentist;
     this.treatmentData.observations = observations;
     this.treatmentData.specs = specs;
+    
+    // Update form fields if they exist
+    var patientNameField = document.getElementById('patientName');
+    var patientDateField = document.getElementById('patientDate');
+    var patientObservationsField = document.getElementById('patientObservations');
+    var patientSpecificationsField = document.getElementById('patientSpecifications');
+    
+    if (patientNameField) patientNameField.value = patient || '';
+    if (patientDateField) patientDateField.value = treatmentDate || '';
+    if (patientObservationsField) patientObservationsField.value = observations || '';
+    if (patientSpecificationsField) patientSpecificationsField.value = specs || '';
 
 };
 
@@ -2074,15 +2088,21 @@ Engine.prototype.getAvailableLanguages = function() {
  * @returns {object} Patient data object
  */
 Engine.prototype.getPatientData = function() {
+    // Read from form fields if available, otherwise from treatmentData
+    var patientNameField = document.getElementById('patientName');
+    var patientDateField = document.getElementById('patientDate');
+    var patientObservationsField = document.getElementById('patientObservations');
+    var patientSpecificationsField = document.getElementById('patientSpecifications');
+    
     return {
-        patientName: this.treatmentData.patient || "",
+        patientName: (patientNameField ? patientNameField.value : '') || this.treatmentData.patient || "",
         patientId: this.treatmentData.number || "",
         location: this.treatmentData.office || "",
         appointmentNumber: this.treatmentData.treatmentNumber || "",
-        date: this.treatmentData.treatmentDate || "",
+        date: (patientDateField ? patientDateField.value : '') || this.treatmentData.treatmentDate || "",
         dentist: this.treatmentData.dentist || "",
-        observations: this.treatmentData.observations || "",
-        specifications: this.treatmentData.specs || ""
+        observations: (patientObservationsField ? patientObservationsField.value : '') || this.treatmentData.observations || "",
+        specifications: (patientSpecificationsField ? patientSpecificationsField.value : '') || this.treatmentData.specs || ""
     };
 };
 
@@ -2158,10 +2178,9 @@ Engine.prototype.loadTeethData = function(teethData) {
                     }
                 }
             }
-            
-            // Apply damages to tooth
+              // Apply damages to tooth
             for (var k = 0; k < damageIds.length; k++) {
-                tooth.addDamage(damageIds[k]);
+                tooth.toggleDamage(damageIds[k]);
             }
             
             tooth.customText = toothData.customText || "";
