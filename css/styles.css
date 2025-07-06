@@ -269,17 +269,25 @@ body {
     gap: 20px;
     padding: 10px;
     align-items: flex-start;
+    height: calc(100vh - 100px); /* Altura total menos o header */
+}
+
+/* Canvas styling */
+#canvas {
+    flex-shrink: 0; /* Canvas não redimensiona */
 }
 
 /* Report panel styles */
 .report-panel {
-    width: 350px;
-    min-height: 500px;
+    flex: 1; /* Ocupa todo o espaço restante */
     background: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
 }
 
 .report-header {
@@ -297,23 +305,75 @@ body {
     font-weight: bold;
 }
 
-.toggle-report-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.toggle-report-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
 .report-content {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     padding: 15px;
-    max-height: 700px;
+}
+
+/* Two-column layout for report content */
+.report-columns {
+    display: flex;
+    height: 100%;
+    gap: 15px;
+}
+
+/* Patient information column (40%) */
+.patient-column {
+    flex: 0 0 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Diagnostics column (60%) */
+.diagnostics-column {
+    flex: 0 0 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+}
+
+/* Patient info section */
+.patient-info {
+    height: 100%;
+}
+
+.patient-info h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 14px;
+    border-bottom: 2px solid #0052ff;
+    padding-bottom: 5px;
+}
+
+/* Teeth and summary reports */
+.teeth-report,
+.summary-report {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.teeth-report {
+    flex: 1;
+    min-height: 0; /* Permite que a seção se redimensione */
+}
+
+.teeth-report h4,
+.summary-report h4 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 14px;
+    border-bottom: 2px solid #0052ff;
+    padding-bottom: 5px;
+}
+
+#teethDetails {
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -349,44 +409,41 @@ body {
     color: #333;
 }
 
+/* Styling for tooth and summary items */
 .tooth-item {
-    background: #f8f9fa;
-    border: 1px solid #e9ecef;
+    background: white;
+    border: 1px solid #dee2e6;
     border-radius: 4px;
-    padding: 8px;
+    padding: 10px;
     margin-bottom: 8px;
-    font-size: 12px;
 }
 
 .tooth-number {
     font-weight: bold;
     color: #0052ff;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    font-size: 13px;
 }
 
 .tooth-treatments {
-    color: #555;
+    font-size: 12px;
+    color: #666;
     line-height: 1.4;
-}
-
-.treatment-item {
-    margin-bottom: 2px;
 }
 
 .summary-item {
     display: flex;
     justify-content: space-between;
-    padding: 5px 0;
-    border-bottom: 1px solid #f0f0f0;
-    font-size: 12px;
-}
-
-.summary-item:last-child {
-    border-bottom: none;
+    align-items: center;
+    padding: 8px 12px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    margin-bottom: 6px;
 }
 
 .summary-treatment {
-    font-weight: bold;
+    font-size: 12px;
     color: #333;
 }
 
@@ -396,6 +453,9 @@ body {
     padding: 2px 8px;
     border-radius: 12px;
     font-size: 11px;
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
 }
 
 .report-hidden {
@@ -404,11 +464,26 @@ body {
 
 /* Form styles for patient information */
 .patient-form {
-    padding: 10px 0;
+    padding: 0;
+    height: calc(100% - 40px); /* Altura total menos o título */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.form-group:last-child {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group:last-child .form-textarea {
+    flex: 1;
+    min-height: 80px;
 }
 
 .form-group label {
@@ -454,7 +529,42 @@ body {
     }
 }
 
+@media (max-width: 1400px) {
+    .report-columns {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .patient-column,
+    .diagnostics-column {
+        flex: 1 1 auto;
+    }
+    
+    .patient-form {
+        height: auto;
+    }
+    
+    .form-group:last-child {
+        flex: none;
+    }
+    
+    .form-group:last-child .form-textarea {
+        flex: none;
+        min-height: 60px;
+    }
+}
+
 @media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .report-panel {
+        width: 100%;
+        max-height: none;
+    }
+    
     .file-controls,
     .language-selector {
         position: relative;

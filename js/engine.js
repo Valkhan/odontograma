@@ -166,24 +166,42 @@ Engine.prototype.init = function () {
         this.odontSpacesAdult, this.canvas);
 
     this.odontogramaGenerator.prepareOdontogramaChild(this.odontChild,
-        this.odontSpacesChild, this.canvas);
-
-    this.mouth = this.odontAdult;
+        this.odontSpacesChild, this.canvas);    this.mouth = this.odontAdult;
 
     this.spaces = this.odontSpacesAdult;
 
     this.createMenu()
-    this.adult = new MenuItem();
-    this.adult.setUp(10, 150, 75, 20);
-    this.adult.textBox.text = this.i18n.t('button.adult');
-    this.adult.active = true;
-    this.buttons.push(this.adult);
+    
+    // Only create adult button if enabled in settings
+    if (this.settings.ADULT_ENABLED) {
+        this.adult = new MenuItem();
+        this.adult.setUp(10, 150, 75, 20);
+        this.adult.textBox.text = this.i18n.t('button.adult');
+        this.adult.active = (this.settings.DEFAULT_VIEW === "adult");
+        this.buttons.push(this.adult);
+    }
 
-    this.child = new MenuItem();
-    this.child.setUp(90, 150, 75, 20);
-    this.child.textBox.text = this.i18n.t('button.child');
-    this.child.active = false;
-    this.buttons.push(this.child);
+    // Only create child button if enabled in settings
+    if (this.settings.CHILD_ENABLED) {
+        this.child = new MenuItem();
+        // Position child button based on whether adult button exists
+        var childX = this.settings.ADULT_ENABLED ? 90 : 10;
+        this.child.setUp(childX, 150, 75, 20);
+        this.child.textBox.text = this.i18n.t('button.child');
+        this.child.active = (this.settings.DEFAULT_VIEW === "child");
+        this.buttons.push(this.child);
+    }
+
+    // Set default view based on settings
+    if (this.settings.DEFAULT_VIEW === "child" && this.settings.CHILD_ENABLED) {
+        this.adultShowing = false;
+        this.mouth = this.odontChild;
+        this.spaces = this.odontSpacesChild;
+    } else if (this.settings.DEFAULT_VIEW === "adult" && this.settings.ADULT_ENABLED) {
+        this.adultShowing = true;
+        this.mouth = this.odontAdult;
+        this.spaces = this.odontSpacesAdult;
+    }
 
     this.clear = new MenuItem()
     this.clear = new MenuItem();
@@ -779,13 +797,15 @@ Engine.prototype.mouseClickControls = function (event) {
     "use strict";
     var shouldUpdate = false;
 
-
-    if (this.adult.rect.checkCollision(
+    // Only check adult button if it exists
+    if (this.adult && this.adult.rect.checkCollision(
         this.getXpos(event),
         this.getYpos(event))) {
 
         this.adult.active = true;
-        this.child.active = false;
+        if (this.child) {
+            this.child.active = false;
+        }
         shouldUpdate = true;
 
         this.adultShowing = true;
@@ -795,12 +815,14 @@ Engine.prototype.mouseClickControls = function (event) {
         this.update();
     }
 
-
-    if (this.child.rect.checkCollision(
+    // Only check child button if it exists
+    if (this.child && this.child.rect.checkCollision(
         this.getXpos(event),
         this.getYpos(event))) {
 
-        this.adult.active = false;
+        if (this.adult) {
+            this.adult.active = false;
+        }
         this.child.active = true;
         shouldUpdate = true;
 
@@ -811,7 +833,6 @@ Engine.prototype.mouseClickControls = function (event) {
         this.update();
     }
 
-
     if (this.clear.rect.checkCollision(
         this.getXpos(event),
         this.getYpos(event))) {
@@ -819,7 +840,6 @@ Engine.prototype.mouseClickControls = function (event) {
         shouldUpdate = true;
         this.reset();
     }
-
 
     if (shouldUpdate) {
         this.update();
@@ -985,23 +1005,26 @@ Engine.prototype.mouseMoveMenuItems = function (event) {
 
             this.menuItems[i].highlight = false;
         }
+    }    // Only check child button if it exists
+    if (this.child) {
+        if (this.child.rect.checkCollision(this.getXpos(event),
+            this.getYpos(event))) {
+            this.child.highlight = true;
+            update = true;
+        } else {
+            this.child.highlight = false;
+        }
     }
 
-    if (this.child.rect.checkCollision(this.getXpos(event),
-        this.getYpos(event))) {
-        this.child.highlight = true;
-        update = true;
-    } else {
-        this.child.highlight = false;
-    }
-
-
-    if (this.adult.rect.checkCollision(this.getXpos(event),
-        this.getYpos(event))) {
-        this.adult.highlight = true;
-        update = true;
-    } else {
-        this.adult.highlight = false;
+    // Only check adult button if it exists
+    if (this.adult) {
+        if (this.adult.rect.checkCollision(this.getXpos(event),
+            this.getYpos(event))) {
+            this.adult.highlight = true;
+            update = true;
+        } else {
+            this.adult.highlight = false;
+        }
     }
 
     if (this.clear.rect.checkCollision(this.getXpos(event),
@@ -1401,19 +1424,28 @@ Engine.prototype.onButtonClick = function (event) {
                 this.settings.DEBUG = !this.settings.DEBUG;
 
                 this.save();
-            }
-
-            if (event.key === "ArrowLeft") {                this.adultShowing = true;
+            }            if (event.key === "ArrowLeft" && this.settings.ADULT_ENABLED) {
+                this.adultShowing = true;
+                if (this.adult) {
+                    this.adult.active = true;
+                }
+                if (this.child) {
+                    this.child.active = false;
+                }
                 console.log(this.i18n.t('console.setting_adult'));
                 this.mouth = this.odontAdult;
                 this.spaces = this.odontSpacesAdult;
                 this.update();
-
             }
 
-            if (event.key === "ArrowRight") {
-
+            if (event.key === "ArrowRight" && this.settings.CHILD_ENABLED) {
                 this.adultShowing = false;
+                if (this.adult) {
+                    this.adult.active = false;
+                }
+                if (this.child) {
+                    this.child.active = true;
+                }
                 console.log(this.i18n.t('console.setting_child'));
                 this.mouth = this.odontChild;
                 this.spaces = this.odontSpacesChild;

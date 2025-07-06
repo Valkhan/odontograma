@@ -145,20 +145,6 @@ function setupFileControls() {
  * Set up report panel functionality
  */
 function setupReportPanel() {
-    // Toggle report panel
-    document.getElementById('toggleReportBtn').addEventListener('click', function() {
-        var reportContent = document.querySelector('.report-content');
-        var toggleBtn = document.getElementById('toggleReportBtn');
-        
-        if (reportContent.style.display === 'none') {
-            reportContent.style.display = 'block';
-            toggleBtn.textContent = engine.i18n.t('report.toggle_hide');
-        } else {
-            reportContent.style.display = 'none';
-            toggleBtn.textContent = engine.i18n.t('report.toggle_show');
-        }
-    });
-    
     // Add event listeners for patient form fields
     addPatientFormListeners();
     
@@ -523,14 +509,6 @@ function updateReportTexts() {
     document.getElementById('patientName').placeholder = engine.i18n.t('report.patient.name_placeholder');
     document.getElementById('patientObservations').placeholder = engine.i18n.t('report.patient.observations_placeholder');
     document.getElementById('patientSpecifications').placeholder = engine.i18n.t('report.patient.specifications_placeholder');
-    
-    var toggleBtn = document.getElementById('toggleReportBtn');
-    var reportContent = document.querySelector('.report-content');
-    if (reportContent.style.display === 'none') {
-        toggleBtn.textContent = engine.i18n.t('report.toggle_show');
-    } else {
-        toggleBtn.textContent = engine.i18n.t('report.toggle_hide');
-    }
     
     updateReport();
 }

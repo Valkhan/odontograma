@@ -131,43 +131,49 @@
                     </div>
                 </div>            </div>
         </div>
-    </div>
-      <div class="main-container">
+    </div>    <div class="main-container">
         <canvas id="canvas" width="648" height="800" crossorigin="anonymous"></canvas>
-        <div id="reportPanel" class="report-panel">
-            <div class="report-header">
+        <div id="reportPanel" class="report-panel">            <div class="report-header">
                 <h3 id="reportTitle">Relatório do Odontograma</h3>
-                <button id="toggleReportBtn" class="toggle-report-btn">Ocultar</button>
             </div>
             <div class="report-content">
-                <div class="patient-info">
-                    <h4 id="patientInfoTitle">Informações do Paciente</h4>
-                    <div class="patient-form">
-                        <div class="form-group">
-                            <label for="patientName" id="patientNameLabel">Nome:</label>
-                            <input type="text" id="patientName" class="form-input" placeholder="Nome do paciente">
-                        </div>
-                        <div class="form-group">
-                            <label for="patientDate" id="patientDateLabel">Data:</label>
-                            <input type="date" id="patientDate" class="form-input">
-                        </div>
-                        <div class="form-group">
-                            <label for="patientObservations" id="patientObservationsLabel">Observações:</label>
-                            <textarea id="patientObservations" class="form-textarea" placeholder="Observações sobre o paciente" rows="3"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="patientSpecifications" id="patientSpecificationsLabel">Especificações:</label>
-                            <textarea id="patientSpecifications" class="form-textarea" placeholder="Especificações do tratamento" rows="3"></textarea>
+                <div class="report-columns">
+                    <!-- Coluna da esquerda: Informações do Paciente (40%) -->
+                    <div class="patient-column">
+                        <div class="patient-info">
+                            <h4 id="patientInfoTitle">Informações do Paciente</h4>
+                            <div class="patient-form">
+                                <div class="form-group">
+                                    <label for="patientName" id="patientNameLabel">Nome:</label>
+                                    <input type="text" id="patientName" class="form-input" placeholder="Nome do paciente">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientDate" id="patientDateLabel">Data:</label>
+                                    <input type="date" id="patientDate" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientObservations" id="patientObservationsLabel">Observações:</label>
+                                    <textarea id="patientObservations" class="form-textarea" placeholder="Observações sobre o paciente" rows="4"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="patientSpecifications" id="patientSpecificationsLabel">Especificações:</label>
+                                    <textarea id="patientSpecifications" class="form-textarea" placeholder="Especificações do tratamento" rows="4"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="teeth-report">
-                    <h4 id="teethReportTitle">Diagnósticos por Dente</h4>
-                    <div id="teethDetails"></div>
-                </div>
-                <div class="summary-report">
-                    <h4 id="summaryTitle">Resumo dos Tratamentos</h4>
-                    <div id="summaryDetails"></div>
+                    
+                    <!-- Coluna da direita: Diagnósticos (60%) -->
+                    <div class="diagnostics-column">
+                        <div class="teeth-report">
+                            <h4 id="teethReportTitle">Diagnósticos por Dente</h4>
+                            <div id="teethDetails"></div>
+                        </div>
+                        <div class="summary-report">
+                            <h4 id="summaryTitle">Resumo dos Tratamentos</h4>
+                            <div id="summaryDetails"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
