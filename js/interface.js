@@ -295,8 +295,19 @@ function loadPatientFile(file) {
  */
 function exportPatientData(format) {
     try {
+        console.log("Starting export process...");
+        
         var patientData = engine.getPatientData();
+        console.log("Patient data:", patientData);
+        
         var teethData = engine.getTeethData();
+        console.log("Teeth data:", teethData);
+        
+        // Validate that we have data to export
+        if (!teethData || teethData.length === 0) {
+            console.warn("No teeth data found for export");
+            // Still allow export even if no teeth data
+        }
         
         var exportData = {
             patientName: patientData.patientName || "",
@@ -311,6 +322,8 @@ function exportPatientData(format) {
             exportDate: new Date().toISOString(),
             version: "2.0"
         };
+        
+        console.log("Export data prepared:", exportData);
         
         var content, filename, mimeType;
         
@@ -330,10 +343,23 @@ function exportPatientData(format) {
             mimeType = 'application/json';
         }
         
+        console.log("Downloading file:", filename);
         downloadFile(content, filename, mimeType);
         
+        // Show success message
+        if (engine && engine.i18n) {
+            alert(engine.i18n.t('file.export_success') || 'Export successful!');
+        } else {
+            alert('Export successful!');
+        }
+        
     } catch (error) {
-        alert(engine.i18n.t('file.error_export'));
+        console.error("Export error:", error);
+        if (engine && engine.i18n) {
+            alert(engine.i18n.t('file.error_export') || 'Export failed!');
+        } else {
+            alert('Export failed: ' + error.message);
+        }
     }
 }
 
@@ -669,3 +695,41 @@ function addPatientFormListeners() {
 document.addEventListener('DOMContentLoaded', function() {
     initializeApplication();
 });
+
+/**
+ * Debug function to test export data
+ */
+function debugExportData() {
+    console.log("=== DEBUG EXPORT DATA ===");
+    
+    if (!engine) {
+        console.error("Engine not initialized");
+        return;
+    }
+    
+    console.log("Current mouth (active):", engine.mouth);
+    console.log("Adult mouth:", engine.odontAdult);
+    console.log("Child mouth:", engine.odontChild);
+    console.log("Adult spaces:", engine.odontSpacesAdult);
+    console.log("Child spaces:", engine.odontSpacesChild);
+    console.log("Is adult showing:", engine.adultShowing);
+    
+    var patientData = engine.getPatientData();
+    console.log("Patient data:", patientData);
+    
+    var teethData = engine.getTeethData();
+    console.log("Teeth data:", teethData);
+    
+    // Check for damages in current mouth
+    if (engine.mouth && Array.isArray(engine.mouth)) {
+        var teethWithDamages = engine.mouth.filter(function(tooth) {
+            return tooth.damages && tooth.damages.length > 0;
+        });
+        console.log("Teeth with damages in current mouth:", teethWithDamages);
+    }
+    
+    console.log("=== END DEBUG ===");
+}
+
+// Make debug function available globally
+window.debugExportData = debugExportData;

@@ -2145,36 +2145,121 @@ Engine.prototype.getPatientData = function() {
 Engine.prototype.getTeethData = function() {
     var teethData = [];
     
-    // Check if mouth array exists and is valid
-    if (!this.mouth || !Array.isArray(this.mouth)) {
-        return teethData;
+    // Function to extract teeth data from a mouth array
+    var extractTeethData = function(mouthArray, isChild) {
+        if (!mouthArray || !Array.isArray(mouthArray)) {
+            return [];
+        }
+        
+        var data = [];
+        for (var i = 0; i < mouthArray.length; i++) {
+            var tooth = mouthArray[i];
+            if (tooth) {
+                // Extract only damage IDs from damage objects
+                var damageIds = [];
+                if (tooth.damages && Array.isArray(tooth.damages)) {
+                    for (var j = 0; j < tooth.damages.length; j++) {
+                        var damage = tooth.damages[j];
+                        if (typeof damage === 'object' && damage.id !== undefined) {
+                            damageIds.push(damage.id);
+                        } else if (typeof damage === 'number') {
+                            damageIds.push(damage);
+                        }
+                    }
+                }
+                
+                // Extract custom text from textBox
+                var customText = "";
+                if (tooth.textBox && tooth.textBox.text) {
+                    customText = tooth.textBox.text;
+                }
+                
+                // Extract surface data from checkBoxes
+                var surfaces = {};
+                if (tooth.checkBoxes && Array.isArray(tooth.checkBoxes)) {
+                    for (var k = 0; k < tooth.checkBoxes.length; k++) {
+                        var checkBox = tooth.checkBoxes[k];
+                        if (checkBox && checkBox.state !== 0) {
+                            surfaces[checkBox.id] = checkBox.state;
+                        }
+                    }
+                }
+                
+                // Only add tooth if it has any data
+                if (damageIds.length > 0 || customText || Object.keys(surfaces).length > 0) {
+                    var toothData = {
+                        id: tooth.id,
+                        damages: damageIds,
+                        customText: customText,
+                        surfaces: surfaces,
+                        isChild: isChild || false
+                    };
+                    data.push(toothData);
+                }
+            }
+        }
+        return data;
+    };
+    
+    // Extract data from adult teeth
+    if (this.odontAdult) {
+        var adultData = extractTeethData(this.odontAdult, false);
+        teethData = teethData.concat(adultData);
     }
     
-    for (var i = 0; i < this.mouth.length; i++) {
-        var tooth = this.mouth[i];
-        if (tooth) {
-            // Extract only damage IDs from damage objects
-            var damageIds = [];
-            if (tooth.damages && Array.isArray(tooth.damages)) {
-                for (var j = 0; j < tooth.damages.length; j++) {
-                    var damage = tooth.damages[j];
+    // Extract data from child teeth
+    if (this.odontChild) {
+        var childData = extractTeethData(this.odontChild, true);
+        teethData = teethData.concat(childData);
+    }
+    
+    // Also extract data from spaces if they have damages
+    var extractSpaceData = function(spacesArray) {
+        if (!spacesArray || !Array.isArray(spacesArray)) {
+            return [];
+        }
+        
+        var data = [];
+        for (var i = 0; i < spacesArray.length; i++) {
+            var space = spacesArray[i];
+            if (space && space.damages && Array.isArray(space.damages) && space.damages.length > 0) {
+                var damageIds = [];
+                for (var j = 0; j < space.damages.length; j++) {
+                    var damage = space.damages[j];
                     if (typeof damage === 'object' && damage.id !== undefined) {
                         damageIds.push(damage.id);
                     } else if (typeof damage === 'number') {
                         damageIds.push(damage);
                     }
                 }
+                
+                if (damageIds.length > 0) {
+                    data.push({
+                        id: space.id,
+                        damages: damageIds,
+                        customText: "",
+                        surfaces: {},
+                        isSpace: true
+                    });
+                }
             }
-            
-            teethData.push({
-                id: tooth.id,
-                damages: damageIds, // Only export damage IDs
-                customText: tooth.customText || "",
-                isChild: tooth.isChild || false
-            });
         }
+        return data;
+    };
+    
+    // Extract data from adult spaces
+    if (this.odontSpacesAdult) {
+        var adultSpaceData = extractSpaceData(this.odontSpacesAdult);
+        teethData = teethData.concat(adultSpaceData);
     }
     
+    // Extract data from child spaces
+    if (this.odontSpacesChild) {
+        var childSpaceData = extractSpaceData(this.odontSpacesChild);
+        teethData = teethData.concat(childSpaceData);
+    }
+    
+    console.log("Extracted teeth data for export:", teethData);
     return teethData;
 };
 
@@ -2187,68 +2272,146 @@ Engine.prototype.loadTeethData = function(teethData) {
         return;
     }
     
-    // Clear existing teeth data
-    this.resetAllTeeth();
+    console.log("Loading teeth data:", teethData);
+    
+    // Clear existing teeth data from both adult and child mouths
+    this.resetAllTeethData();
     
     // Load teeth data
     for (var i = 0; i < teethData.length; i++) {
         var toothData = teethData[i];
-        var tooth = this.getToothById(toothData.id);
+        
+        if (!toothData || !toothData.id) {
+            continue;
+        }
+        
+        // Find tooth in appropriate mouth (adult or child)
+        var tooth = null;
+        var space = null;
+        
+        if (toothData.isSpace) {
+            // Handle spaces
+            space = this.getSpaceById(toothData.id);
+        } else {
+            // Handle teeth - look in both adult and child mouths
+            tooth = this.findToothInBothMouths(toothData.id);
+        }
         
         if (tooth) {
-            // Process damages - handle both old format (objects) and new format (numbers)
-            var damageIds = [];
+            // Load damages
             if (toothData.damages && Array.isArray(toothData.damages)) {
                 for (var j = 0; j < toothData.damages.length; j++) {
-                    var damage = toothData.damages[j];
-                    if (typeof damage === 'object' && damage.id !== undefined) {
-                        // Old format: damage object with id property
-                        damageIds.push(damage.id);
-                    } else if (typeof damage === 'number') {
-                        // New format: just the damage ID
-                        damageIds.push(damage);
+                    var damageId = toothData.damages[j];
+                    if (typeof damageId === 'number') {
+                        this.collisionHandler.handleCollision(tooth, damageId);
                     }
                 }
             }
-              // Apply damages to tooth
-            for (var k = 0; k < damageIds.length; k++) {
-                tooth.toggleDamage(damageIds[k]);
+            
+            // Load custom text
+            if (toothData.customText && tooth.textBox) {
+                tooth.textBox.text = toothData.customText;
             }
             
-            tooth.customText = toothData.customText || "";
-            tooth.isChild = toothData.isChild || false;
+            // Load surface data
+            if (toothData.surfaces && typeof toothData.surfaces === 'object') {
+                for (var surfaceId in toothData.surfaces) {
+                    var surface = tooth.getSurfaceById(tooth.id + "_" + surfaceId);
+                    if (surface) {
+                        surface.state = toothData.surfaces[surfaceId];
+                    }
+                }
+            }
+        } else if (space) {
+            // Load damages for spaces
+            if (toothData.damages && Array.isArray(toothData.damages)) {
+                for (var k = 0; k < toothData.damages.length; k++) {
+                    var damageId = toothData.damages[k];
+                    if (typeof damageId === 'number') {
+                        this.collisionHandler.handleCollision(space, damageId);
+                    }
+                }
+            }
         }
     }
+    
+    console.log("Teeth data loaded successfully");
 };
 
 /**
- * Get tooth by ID
+ * Find tooth in both adult and child mouths
  * @param {number} toothId Tooth ID
  * @returns {object} Tooth object or null
  */
-Engine.prototype.getToothById = function(toothId) {
-    if (!this.mouth || !Array.isArray(this.mouth)) {
-        return null;
-    }
-    
-    for (var i = 0; i < this.mouth.length; i++) {
-        if (this.mouth[i].id === toothId) {
-            return this.mouth[i];
+Engine.prototype.findToothInBothMouths = function(toothId) {
+    // Check adult mouth
+    if (this.odontAdult && Array.isArray(this.odontAdult)) {
+        for (var i = 0; i < this.odontAdult.length; i++) {
+            if (this.odontAdult[i].id === toothId) {
+                return this.odontAdult[i];
+            }
         }
     }
+    
+    // Check child mouth
+    if (this.odontChild && Array.isArray(this.odontChild)) {
+        for (var i = 0; i < this.odontChild.length; i++) {
+            if (this.odontChild[i].id === toothId) {
+                return this.odontChild[i];
+            }
+        }
+    }
+    
     return null;
 };
 
 /**
- * Reset all teeth data
+ * Reset all teeth data in both adult and child mouths
  */
-Engine.prototype.resetAllTeeth = function() {
-    if (!this.mouth || !Array.isArray(this.mouth)) {
-        return;
+Engine.prototype.resetAllTeethData = function() {
+    // Reset adult teeth
+    if (this.odontAdult && Array.isArray(this.odontAdult)) {
+        for (var i = 0; i < this.odontAdult.length; i++) {
+            this.odontAdult[i].damages = [];
+            if (this.odontAdult[i].textBox) {
+                this.odontAdult[i].textBox.text = "";
+            }
+            // Reset surfaces
+            if (this.odontAdult[i].checkBoxes && Array.isArray(this.odontAdult[i].checkBoxes)) {
+                for (var j = 0; j < this.odontAdult[i].checkBoxes.length; j++) {
+                    this.odontAdult[i].checkBoxes[j].state = 0;
+                }
+            }
+        }
     }
     
-    for (var i = 0; i < this.mouth.length; i++) {
-        this.mouth[i].damages = [];
-        this.mouth[i].customText = "";
+    // Reset child teeth
+    if (this.odontChild && Array.isArray(this.odontChild)) {
+        for (var i = 0; i < this.odontChild.length; i++) {
+            this.odontChild[i].damages = [];
+            if (this.odontChild[i].textBox) {
+                this.odontChild[i].textBox.text = "";
+            }
+            // Reset surfaces
+            if (this.odontChild[i].checkBoxes && Array.isArray(this.odontChild[i].checkBoxes)) {
+                for (var j = 0; j < this.odontChild[i].checkBoxes.length; j++) {
+                    this.odontChild[i].checkBoxes[j].state = 0;
+                }
+            }
+        }
+    }
+    
+    // Reset adult spaces
+    if (this.odontSpacesAdult && Array.isArray(this.odontSpacesAdult)) {
+        for (var i = 0; i < this.odontSpacesAdult.length; i++) {
+            this.odontSpacesAdult[i].damages = [];
+        }
+    }
+    
+    // Reset child spaces
+    if (this.odontSpacesChild && Array.isArray(this.odontSpacesChild)) {
+        for (var i = 0; i < this.odontSpacesChild.length; i++) {
+            this.odontSpacesChild[i].damages = [];
+        }
     }
 };

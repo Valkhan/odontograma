@@ -9,126 +9,43 @@
   "specifications": "Test specifications",
   "teeth": [
     {
-      "id": 55,
+      "id": 17,
       "damages": [],
       "customText": "",
+      "surfaces": {
+        "17_0": 1
+      },
       "isChild": false
     },
     {
-      "id": 54,
+      "id": 16,
       "damages": [],
       "customText": "",
+      "surfaces": {
+        "16_D": 1
+      },
       "isChild": false
     },
     {
-      "id": 53,
+      "id": 14,
       "damages": [],
       "customText": "",
+      "surfaces": {
+        "14_M": 1
+      },
       "isChild": false
     },
     {
-      "id": 52,
+      "id": 13,
       "damages": [],
       "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 51,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 61,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 62,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 63,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 64,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 65,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 85,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 84,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 83,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 82,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 81,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 71,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 72,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 73,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 74,
-      "damages": [],
-      "customText": "",
-      "isChild": false
-    },
-    {
-      "id": 75,
-      "damages": [],
-      "customText": "",
+      "surfaces": {
+        "13_V": 1,
+        "13_L": 1
+      },
       "isChild": false
     }
   ],
-  "exportDate": "2025-07-05T13:33:52.918Z",
+  "exportDate": "2025-07-07T11:49:32.263Z",
   "version": "2.0"
 }
