@@ -2312,13 +2312,16 @@ Engine.prototype.loadTeethData = function(teethData) {
             if (toothData.customText && tooth.textBox) {
                 tooth.textBox.text = toothData.customText;
             }
-            
-            // Load surface data
+              // Load surface data
             if (toothData.surfaces && typeof toothData.surfaces === 'object') {
                 for (var surfaceId in toothData.surfaces) {
-                    var surface = tooth.getSurfaceById(tooth.id + "_" + surfaceId);
+                    // surfaceId already contains the full ID (e.g., "16_D")
+                    var surface = tooth.getSurfaceById(surfaceId);
                     if (surface) {
                         surface.state = toothData.surfaces[surfaceId];
+                        console.log("Loaded surface:", surfaceId, "with state:", toothData.surfaces[surfaceId]);
+                    } else {
+                        console.warn("Surface not found:", surfaceId, "for tooth:", tooth.id);
                     }
                 }
             }
